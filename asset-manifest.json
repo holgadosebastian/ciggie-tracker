@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ciggie-tracker/static/css/main.80180a14.css",
+    "main.js": "/ciggie-tracker/static/js/main.148b649b.js",
+    "index.html": "/ciggie-tracker/index.html",
+    "main.80180a14.css.map": "/ciggie-tracker/static/css/main.80180a14.css.map",
+    "main.148b649b.js.map": "/ciggie-tracker/static/js/main.148b649b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.80180a14.css",
+    "static/js/main.148b649b.js"
+  ]
+}
