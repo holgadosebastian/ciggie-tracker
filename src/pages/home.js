@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import cn from 'classnames'
+import { v4 as uuidv4 } from 'uuid'
 
 import { updatePuchits, getDailyPuchits, getTimeString } from '../utils/utils'
 
@@ -10,7 +11,6 @@ const Home = () => {
 
   useEffect(() => {
     const savedPuchits = localStorage.getItem('puchits') ? JSON.parse(localStorage.getItem('puchits')) : []
-    console.log('savedPuchits', savedPuchits)
     setPuchits(savedPuchits)
   }, [])
 
@@ -20,6 +20,7 @@ const Home = () => {
 
   const onAddPuchit = () => {
     const newPuchit = {
+      id: uuidv4(),
       date: new Date()
     }
 
@@ -40,9 +41,8 @@ const Home = () => {
       {todayPuchits.length > 0 && (
         <div className="p-4 overflow-y-auto" style={{ height: '50vh' }}>
           <ul>
-            {todayPuchits.map(({date}, index) => {
-              console.log('index', index)
-              return <li key={index} className={cn('px-4', 'py-2', 'bg-violet-900', { 'mt-1': index > 0 } )}>{getTimeString(date)}</li>
+            {todayPuchits.map(({id, date}, index) => {
+              return <li key={id} className={cn('px-4', 'py-2', 'bg-violet-900', { 'mt-1': index > 0 } )}>{getTimeString(date)}</li>
             })}
           </ul>
         </div>
