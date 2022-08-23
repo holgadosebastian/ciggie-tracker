@@ -11,10 +11,10 @@ const History = ({ puchits }) => {
 
   return (
     <div className="pt-12 px-4 pb-4 grid grid-cols-3 gap-4">
-      {Object.keys(groupedPuchits).map((keyName, keyIndex) => {
+      {Object.keys(groupedPuchits).map(keyName => {
         const { count } = groupedPuchits[keyName]
         return (
-          <div className="text-center p-2 bg-violet-900 rounded-md">
+          <div key={keyName} className="text-center p-2 bg-violet-900 rounded-md">
             <p className="mb-2 text-xs">{keyName}</p>
             <p className="text-3xl">
               <span className="inline-block">{count}</span>

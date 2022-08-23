@@ -16,6 +16,7 @@ import { updatePuchits } from './utils/utils'
 const App = () => {
   const [puchits, setPuchits] = useState([])
   const [todayDate, setTodayDate] = useState((new Date()).toLocaleDateString())
+  const [activePuchitId, setActivePuchitId] = useState(null)
 
   useEffect(() => {
     const savedPuchits = localStorage.getItem('puchits') ? JSON.parse(localStorage.getItem('puchits')) : []
@@ -36,6 +37,13 @@ const App = () => {
     setPuchits(updatedPuchits)
     updatePuchits(updatedPuchits)
   }
+
+  const onRemovePuchit = puchitId => {
+    const updatedPuchits = puchits.filter(({ id }) => puchitId !== id)
+
+    setPuchits(updatedPuchits)
+    updatePuchits(updatedPuchits)
+  }
   
   return (
     <Router>
@@ -44,7 +52,7 @@ const App = () => {
         <Routes>
           <Route
             path='/'
-            element={<Home puchits={puchits} todayDate={todayDate} onAddPuchit={onAddPuchit} />}
+            element={<Home puchits={puchits} todayDate={todayDate} onAddPuchit={onAddPuchit} onRemovePuchit={onRemovePuchit} onSetActivePuchit={setActivePuchitId} activePuchitId={activePuchitId} />}
           />
           <Route
             path='/history'
