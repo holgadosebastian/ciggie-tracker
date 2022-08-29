@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ciggie-tracker/static/css/main.184f1528.css",
-    "main.js": "/ciggie-tracker/static/js/main.ab964375.js",
+    "main.js": "/ciggie-tracker/static/js/main.e8685dc2.js",
     "index.html": "/ciggie-tracker/index.html",
     "main.184f1528.css.map": "/ciggie-tracker/static/css/main.184f1528.css.map",
-    "main.ab964375.js.map": "/ciggie-tracker/static/js/main.ab964375.js.map"
+    "main.e8685dc2.js.map": "/ciggie-tracker/static/js/main.e8685dc2.js.map"
   },
   "entrypoints": [
     "static/css/main.184f1528.css",
-    "static/js/main.ab964375.js"
+    "static/js/main.e8685dc2.js"
   ]
 }
