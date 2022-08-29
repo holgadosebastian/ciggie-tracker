@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
 } from 'react-router-dom';
@@ -53,11 +53,11 @@ const App = () => {
           <Route
             path='/'
             element={<Home puchits={puchits} todayDate={todayDate} onAddPuchit={onAddPuchit} onRemovePuchit={onRemovePuchit} onSetActivePuchit={setActivePuchitId} activePuchitId={activePuchitId} />}
-          />
+          ></Route>
           <Route
             path='/history'
             element={<History puchits={puchits} />}
-          />
+          ></Route>
         </Routes>
       </div>
     </Router>
