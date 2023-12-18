@@ -1,50 +1,53 @@
-import React, { useState, useEffect } from 'react'
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-} from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid'
+import React, { useState, useEffect } from 'react';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
-import Home from './pages/home'
-import History from './pages/history'
+import Home from './pages/home';
+import History from './pages/history';
 
-import Navbar from './layout/navbar'
+import Navbar from './layout/navbar';
 
-import { updatePuchits } from './utils/utils'
+import { updatePuchits } from './utils/utils';
 
 const App = () => {
-  const [puchits, setPuchits] = useState([])
-  const [todayDate, setTodayDate] = useState((new Date()).toLocaleDateString())
-  const [activePuchitId, setActivePuchitId] = useState(null)
+  const [puchits, setPuchits] = useState([]);
+  const [todayDate, setTodayDate] = useState(new Date().toLocaleDateString());
+  const [activePuchitId, setActivePuchitId] = useState(null);
 
   useEffect(() => {
-    const savedPuchits = localStorage.getItem('puchits') ? JSON.parse(localStorage.getItem('puchits')) : []
-    setPuchits(savedPuchits)
+    const savedPuchits = localStorage.getItem('puchits')
+      ? JSON.parse(localStorage.getItem('puchits'))
+      : [];
+    setPuchits(savedPuchits);
 
     setInterval(() => {
-      setTodayDate((new Date()).toLocaleDateString())
-    }, 1000)
-  }, [])
+      setTodayDate(
+        new Date().toLocaleDateString('en', {
+          month: 'long',
+          day: 'numeric'
+        })
+      );
+    }, 1000);
+  }, []);
 
   const onAddPuchit = () => {
     const newPuchit = {
       id: uuidv4(),
       date: new Date()
-    }
+    };
 
-    const updatedPuchits = [...puchits, newPuchit]
-    setPuchits(updatedPuchits)
-    updatePuchits(updatedPuchits)
-  }
+    const updatedPuchits = [...puchits, newPuchit];
+    setPuchits(updatedPuchits);
+    updatePuchits(updatedPuchits);
+  };
 
-  const onRemovePuchit = puchitId => {
-    const updatedPuchits = puchits.filter(({ id }) => puchitId !== id)
+  const onRemovePuchit = (puchitId) => {
+    const updatedPuchits = puchits.filter(({ id }) => puchitId !== id);
 
-    setPuchits(updatedPuchits)
-    updatePuchits(updatedPuchits)
-  }
-  
+    setPuchits(updatedPuchits);
+    updatePuchits(updatedPuchits);
+  };
+
   return (
     <Router>
       <Navbar />
@@ -52,7 +55,16 @@ const App = () => {
         <Routes>
           <Route
             path='/'
-            element={<Home puchits={puchits} todayDate={todayDate} onAddPuchit={onAddPuchit} onRemovePuchit={onRemovePuchit} onSetActivePuchit={setActivePuchitId} activePuchitId={activePuchitId} />}
+            element={
+              <Home
+                puchits={puchits}
+                todayDate={todayDate}
+                onAddPuchit={onAddPuchit}
+                onRemovePuchit={onRemovePuchit}
+                onSetActivePuchit={setActivePuchitId}
+                activePuchitId={activePuchitId}
+              />
+            }
           ></Route>
           <Route
             path='/history'
@@ -61,7 +73,7 @@ const App = () => {
         </Routes>
       </div>
     </Router>
-  )
-}
+  );
+};
 
 export default App;
