@@ -7,6 +7,7 @@ import { getDailyPuchits, getTimeString } from '../utils/utils';
 const Home = ({
   todayDate,
   puchits,
+  goal,
   onAddPuchit,
   activePuchitId,
   onSetActivePuchit,
@@ -23,7 +24,10 @@ const Home = ({
       <div className='flex flex-col justify-center items-center h-3/6'>
         <p className='mb-2'>{todayDate}</p>
         <div className='rounded-full border-4 border-solid border-white w-32 h-32 flex justify-center items-center'>
-          <span className='text-5xl'>{todayPuchits.length}</span>
+          <div className='flex items-center gap-2'>
+            <span className='text-5xl'>{todayPuchits.length}</span>
+            {goal && goal > 0 && <span className='text-xl'>/ {goal}</span>}
+          </div>
         </div>
         <button
           className='bg-white text-violet-700 px-6 py-2 mt-4 rounded'

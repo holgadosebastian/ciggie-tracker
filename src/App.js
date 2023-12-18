@@ -7,10 +7,11 @@ import History from './pages/history';
 
 import Navbar from './layout/navbar';
 
-import { updatePuchits } from './utils/utils';
+import { updatePuchits, updateGoal } from './utils/utils';
 
 const App = () => {
   const [puchits, setPuchits] = useState([]);
+  const [goal, setGoal] = useState(0);
   const [todayDate, setTodayDate] = useState(new Date().toLocaleDateString());
   const [activePuchitId, setActivePuchitId] = useState(null);
 
@@ -18,7 +19,11 @@ const App = () => {
     const savedPuchits = localStorage.getItem('puchits')
       ? JSON.parse(localStorage.getItem('puchits'))
       : [];
+    const savedGoal = localStorage.getItem('puchits-goal')
+      ? JSON.parse(localStorage.getItem('puchits-goal'))
+      : 0;
     setPuchits(savedPuchits);
+    setGoal(savedGoal);
 
     setInterval(() => {
       setTodayDate(
@@ -41,6 +46,11 @@ const App = () => {
     updatePuchits(updatedPuchits);
   };
 
+  const handleUpdateGoal = (goal) => {
+    setGoal(goal);
+    updateGoal(goal);
+  };
+
   const onRemovePuchit = (puchitId) => {
     const updatedPuchits = puchits.filter(({ id }) => puchitId !== id);
 
@@ -50,7 +60,7 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar />
+      <Navbar goal={goal} onUpdateGoal={handleUpdateGoal} />
       <div>
         <Routes>
           <Route
@@ -58,6 +68,7 @@ const App = () => {
             element={
               <Home
                 puchits={puchits}
+                goal={goal}
                 todayDate={todayDate}
                 onAddPuchit={onAddPuchit}
                 onRemovePuchit={onRemovePuchit}
