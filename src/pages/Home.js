@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import cn from 'classnames';
 
-import { Icon, Surface } from '../components';
+import { Icon, Surface, Button } from '../components';
 import { getDailyPuchits, getTimeString } from '../utils/utils';
 import MainContext from '../context/MainContext';
 
@@ -38,12 +38,9 @@ const Counter = ({ todayDate, todayPuchits }) => {
             {goal > 0 && <span className='text-xl'>/ {goal}</span>}
           </div>
         </div>
-        <button
-          className='bg-white text-violet-700 px-6 py-2 mt-4 rounded'
-          onClick={() => addCigarette()}
-        >
+        <Button className='mt-4' onClick={() => addCigarette()}>
           ADD
-        </button>
+        </Button>
       </Surface>
     </div>
   );

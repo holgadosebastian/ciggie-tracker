@@ -5,7 +5,7 @@ export const Surface = ({
   as = 'div',
   background = 'dark',
   rounded = 'none',
-  padding = 'sm',
+  padding = 'none',
   className,
   ...props
 }) => {
@@ -29,7 +29,6 @@ export const Surface = ({
     lg: 'p-8'
   };
   const styles = cn(
-    'p-4',
     'transition-colors',
     backgroundStyles[background],
     roundedStyles[rounded],
