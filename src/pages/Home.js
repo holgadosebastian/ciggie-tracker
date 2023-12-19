@@ -7,7 +7,7 @@ import MainContext from '../context/MainContext';
 
 const Home = ({ todayDate }) => {
   const [todayPuchits, setTodayPuchits] = useState([]);
-  const { goal, cigarettes, addCigarette } = useContext(MainContext);
+  const { cigarettes } = useContext(MainContext);
 
   useEffect(() => {
     setTodayPuchits(getDailyPuchits(cigarettes).reverse());
@@ -75,7 +75,9 @@ const CigaretteItem = ({ id, date, activePuchitId, onSetActivePuchit }) => {
   };
 
   return (
-    <li
+    <Surface
+      as='li'
+      rounded='sm'
       onClick={() =>
         activePuchitId !== id ? onSetActivePuchit(id) : onSetActivePuchit(null)
       }
@@ -89,11 +91,10 @@ const CigaretteItem = ({ id, date, activePuchitId, onSetActivePuchit }) => {
         'justify-between',
         'items-center',
         {
-          'bg-violet-900': activePuchitId !== id,
-          'bg-white': activePuchitId === id,
           'text-violet-900': activePuchitId === id
         }
       )}
+      background={activePuchitId === id ? 'white' : 'dark'}
     >
       <p>{getTimeString(date)}</p>
       {activePuchitId === id && (
@@ -112,7 +113,7 @@ const CigaretteItem = ({ id, date, activePuchitId, onSetActivePuchit }) => {
           </div>
         </div>
       )}
-    </li>
+    </Surface>
   );
 };
 
