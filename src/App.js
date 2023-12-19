@@ -25,7 +25,7 @@ const App = () => {
     <MainState>
       <Router>
         <Header />
-        <div>
+        <div className='pt-16'>
           <Routes>
             <Route path='/' element={<Home todayDate={todayDate} />}></Route>
             <Route path='/history' element={<History />}></Route>

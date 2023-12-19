@@ -14,7 +14,7 @@ const Home = ({ todayDate }) => {
   }, [cigarettes]);
 
   return (
-    <div className='h-screen'>
+    <div className='h-[calc(100vh-4rem)]'>
       <Counter todayDate={todayDate} todayPuchits={todayPuchits} />
       {todayPuchits.length > 0 && <CigarettesList cigarettes={todayPuchits} />}
     </div>

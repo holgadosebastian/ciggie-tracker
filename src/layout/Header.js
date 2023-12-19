@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 
-import { Icon } from '../components';
+import { Icon, Surface } from '../components';
 import MainContext from '../context/MainContext';
 
 const Header = () => {
@@ -11,7 +11,10 @@ const Header = () => {
 
   return (
     <>
-      <header className='fixed inset-x-0 top-0 py-2 px-4 flex gap-x-3 justify-between bg-violet-700'>
+      <Surface
+        as='header'
+        className='fixed inset-x-0 top-0 py-2 px-4 h-10 flex gap-x-3 justify-between bg-violet-700'
+      >
         <button onClick={() => setMenuOpen(!menuOpen)}>
           <Icon name='navicon' />
         </button>
@@ -29,7 +32,7 @@ const Header = () => {
             History
           </Link>
         </nav>
-      </header>
+      </Surface>
       <MenuDrawer isOpen={menuOpen} onMenuClose={() => setMenuOpen(false)} />
     </>
   );
