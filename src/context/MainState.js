@@ -3,21 +3,14 @@ import React, { useReducer, useEffect } from 'react';
 import MainContext from './MainContext';
 import mainReducer from './mainReducer';
 
-import { updateGoalStorage } from '../utils/utils';
+import { updateGoalStorage, updateCigarettesStorage } from '../utils/utils';
 
 const MainState = ({ children }) => {
   const initialState = {
-    goal: 0,
-    cigarettes: []
+    goal: parseInt(localStorage.getItem('puchits-goal') || '0'),
+    cigarettes: JSON.parse(localStorage.getItem('puchits') || '[]')
   };
   const [state, dispatch] = useReducer(mainReducer, initialState);
-
-  const setCigarettes = (cigarettes) => {
-    dispatch({
-      type: 'LOAD_INITIAL_CIGARETTES',
-      payload: cigarettes
-    });
-  };
 
   const addCigarette = (cigarette) => {
     dispatch({
@@ -42,9 +35,12 @@ const MainState = ({ children }) => {
   };
 
   useEffect(() => {
-    setCigarettes(JSON.parse(localStorage.getItem('puchits') || '[]'));
-    setGoal(JSON.parse(localStorage.getItem('puchits-goal')) || 0);
-  }, []);
+    updateCigarettesStorage(state.cigarettes);
+  }, [state.cigarettes]);
+
+  useEffect(() => {
+    updateGoalStorage(state.goal);
+  }, [state.goal]);
 
   return (
     <MainContext.Provider
