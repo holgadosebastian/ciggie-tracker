@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Icon } from '../components';
 import MainContext from '../context/MainContext';
 
-const Navbar = () => {
+const Header = () => {
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -96,4 +96,4 @@ const GoalUpdate = () => {
   );
 };
 
-export default Navbar;
+export default Header;

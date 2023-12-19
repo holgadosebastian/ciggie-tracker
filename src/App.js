@@ -4,7 +4,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import History from './pages/History';
 
-import Navbar from './layout/navbar';
+import Header from './layout/Header';
 import MainState from './context/MainState';
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
   return (
     <MainState>
       <Router>
-        <Navbar />
+        <Header />
         <div>
           <Routes>
             <Route path='/' element={<Home todayDate={todayDate} />}></Route>
