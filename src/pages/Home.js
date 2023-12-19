@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import cn from 'classnames';
 
-import { Icon } from '../components';
+import { Icon, Surface } from '../components';
 import { getDailyPuchits, getTimeString } from '../utils/utils';
 import MainContext from '../context/MainContext';
 
@@ -15,7 +15,22 @@ const Home = ({ todayDate }) => {
 
   return (
     <div className='h-screen'>
-      <div className='flex flex-col justify-center items-center h-3/6'>
+      <Counter todayDate={todayDate} todayPuchits={todayPuchits} />
+      {todayPuchits.length > 0 && <CigarettesList cigarettes={todayPuchits} />}
+    </div>
+  );
+};
+
+const Counter = ({ todayDate, todayPuchits }) => {
+  const { goal, addCigarette } = useContext(MainContext);
+
+  return (
+    <div className='flex align-center h-3/6 w-full justify-center items-center'>
+      <Surface
+        className='flex flex-col justify-center items-center w-80 max-w-full'
+        rounded='md'
+        padding='lg'
+      >
         <p className='mb-2'>{todayDate}</p>
         <div className='rounded-full border-4 border-solid border-white w-32 h-32 flex justify-center items-center'>
           <div className='flex items-center gap-2'>
@@ -29,8 +44,7 @@ const Home = ({ todayDate }) => {
         >
           ADD
         </button>
-      </div>
-      {todayPuchits.length > 0 && <CigarettesList cigarettes={todayPuchits} />}
+      </Surface>
     </div>
   );
 };
