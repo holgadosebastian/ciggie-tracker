@@ -5,7 +5,7 @@ import { Icon } from '../components';
 import { getDailyPuchits, getTimeString } from '../utils/utils';
 import MainContext from '../context/MainContext';
 
-const Home = ({ todayDate, activePuchitId, onSetActivePuchit }) => {
+const Home = ({ todayDate }) => {
   const [todayPuchits, setTodayPuchits] = useState([]);
   const { goal, cigarettes, addCigarette } = useContext(MainContext);
 
@@ -30,21 +30,27 @@ const Home = ({ todayDate, activePuchitId, onSetActivePuchit }) => {
           ADD
         </button>
       </div>
-      {todayPuchits.length > 0 && (
-        <div className='h-3/6 overflow-y-auto p-4'>
-          <ul className='flex flex-col gap-2'>
-            {todayPuchits.map(({ id, date }) => (
-              <CigaretteItem
-                id={id}
-                key={id}
-                date={date}
-                activePuchitId={activePuchitId}
-                onSetActivePuchit={onSetActivePuchit}
-              />
-            ))}
-          </ul>
-        </div>
-      )}
+      {todayPuchits.length > 0 && <CigarettesList cigarettes={todayPuchits} />}
+    </div>
+  );
+};
+
+const CigarettesList = ({ cigarettes }) => {
+  const [activePuchitId, setActivePuchitId] = useState(null);
+
+  return (
+    <div className='h-3/6 overflow-y-auto p-4'>
+      <ul className='flex flex-col gap-2'>
+        {cigarettes.map(({ id, date }) => (
+          <CigaretteItem
+            id={id}
+            key={id}
+            date={date}
+            activePuchitId={activePuchitId}
+            onSetActivePuchit={setActivePuchitId}
+          />
+        ))}
+      </ul>
     </div>
   );
 };

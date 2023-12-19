@@ -9,7 +9,6 @@ import MainState from './context/MainState';
 
 const App = () => {
   const [todayDate, setTodayDate] = useState(new Date().toLocaleDateString());
-  const [activePuchitId, setActivePuchitId] = useState(null);
 
   useEffect(() => {
     setInterval(() => {
@@ -28,16 +27,7 @@ const App = () => {
         <Navbar />
         <div>
           <Routes>
-            <Route
-              path='/'
-              element={
-                <Home
-                  todayDate={todayDate}
-                  onSetActivePuchit={setActivePuchitId}
-                  activePuchitId={activePuchitId}
-                />
-              }
-            ></Route>
+            <Route path='/' element={<Home todayDate={todayDate} />}></Route>
             <Route path='/history' element={<History />}></Route>
           </Routes>
         </div>
