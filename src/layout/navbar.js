@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 
 import { Icon } from '../components';
+import MainContext from '../context/MainContext';
 
-const Navbar = ({ onUpdateGoal }) => {
+const Navbar = () => {
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -29,16 +30,12 @@ const Navbar = ({ onUpdateGoal }) => {
           </Link>
         </nav>
       </header>
-      <MenuDrawer
-        isOpen={menuOpen}
-        onMenuClose={() => setMenuOpen(false)}
-        onUpdateGoal={onUpdateGoal}
-      />
+      <MenuDrawer isOpen={menuOpen} onMenuClose={() => setMenuOpen(false)} />
     </>
   );
 };
 
-const MenuDrawer = ({ isOpen, onMenuClose, onUpdateGoal }) => {
+const MenuDrawer = ({ isOpen, onMenuClose }) => {
   return (
     <div
       className={cn(
@@ -64,7 +61,7 @@ const MenuDrawer = ({ isOpen, onMenuClose, onUpdateGoal }) => {
       <div className='max-w-xs mx-auto py-10'>
         <ul className='flex w-full'>
           <li>
-            <GoalUpdate onUpdateGoal={onUpdateGoal} />
+            <GoalUpdate />
           </li>
         </ul>
       </div>
@@ -72,7 +69,8 @@ const MenuDrawer = ({ isOpen, onMenuClose, onUpdateGoal }) => {
   );
 };
 
-const GoalUpdate = ({ onUpdateGoal, goal }) => {
+const GoalUpdate = () => {
+  const { goal, setGoal } = useContext(MainContext);
   const [updatedGoal, setUpdatedGoal] = useState(goal || 0);
 
   return (
@@ -84,12 +82,12 @@ const GoalUpdate = ({ onUpdateGoal, goal }) => {
           type='number'
           min='0'
           max='100'
-          onChange={(e) => setUpdatedGoal(e.target.value)}
+          onChange={(e) => setUpdatedGoal(parseInt(e.target.value))}
           value={updatedGoal}
         />
         <button
           className='bg-white text-violet-700 px-4 uppercase rounded rounded-l-none'
-          onClick={() => onUpdateGoal(updatedGoal)}
+          onClick={() => setGoal(updatedGoal)}
         >
           Update
         </button>

@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import cn from 'classnames';
 
 import { Icon } from '../components';
 import { getDailyPuchits, getTimeString } from '../utils/utils';
+import MainContext from '../context/MainContext';
 
-const Home = ({
-  todayDate,
-  puchits,
-  goal,
-  onAddPuchit,
-  activePuchitId,
-  onSetActivePuchit,
-  onRemovePuchit
-}) => {
+const Home = ({ todayDate, activePuchitId, onSetActivePuchit }) => {
   const [todayPuchits, setTodayPuchits] = useState([]);
+  const { goal, cigarettes, addCigarette } = useContext(MainContext);
 
   useEffect(() => {
-    setTodayPuchits(getDailyPuchits(puchits).reverse());
-  }, [puchits]);
+    setTodayPuchits(getDailyPuchits(cigarettes).reverse());
+  }, [cigarettes]);
 
   return (
     <div className='h-screen'>
@@ -26,12 +20,12 @@ const Home = ({
         <div className='rounded-full border-4 border-solid border-white w-32 h-32 flex justify-center items-center'>
           <div className='flex items-center gap-2'>
             <span className='text-5xl'>{todayPuchits.length}</span>
-            {goal && goal > 0 && <span className='text-xl'>/ {goal}</span>}
+            {goal > 0 && <span className='text-xl'>/ {goal}</span>}
           </div>
         </div>
         <button
           className='bg-white text-violet-700 px-6 py-2 mt-4 rounded'
-          onClick={onAddPuchit}
+          onClick={() => addCigarette()}
         >
           ADD
         </button>
@@ -40,12 +34,11 @@ const Home = ({
         <div className='h-3/6 overflow-y-auto p-4'>
           <ul className='flex flex-col gap-2'>
             {todayPuchits.map(({ id, date }) => (
-              <Item
+              <CigaretteItem
                 id={id}
                 key={id}
                 date={date}
                 activePuchitId={activePuchitId}
-                onRemovePuchit={onRemovePuchit}
                 onSetActivePuchit={onSetActivePuchit}
               />
             ))}
@@ -56,13 +49,14 @@ const Home = ({
   );
 };
 
-const Item = ({
-  id,
-  date,
-  activePuchitId,
-  onSetActivePuchit,
-  onRemovePuchit
-}) => {
+const CigaretteItem = ({ id, date, activePuchitId, onSetActivePuchit }) => {
+  const { removeCigarette } = useContext(MainContext);
+
+  const handleRemoveCigarette = (event) => {
+    event.stopPropagation();
+    removeCigarette(id);
+  };
+
   return (
     <li
       onClick={() =>
@@ -87,12 +81,12 @@ const Item = ({
       <p>{getTimeString(date)}</p>
       {activePuchitId === id && (
         <div className='flex'>
-          <div
+          <button
             className='h-8 w-8 text-center leading-8'
-            onClick={() => onRemovePuchit(id)}
+            onClick={handleRemoveCigarette}
           >
             <Icon name='trash-alt' />
-          </div>
+          </button>
           <div
             className='h-8 w-8 text-center leading-8'
             onClick={() => onSetActivePuchit(null)}
