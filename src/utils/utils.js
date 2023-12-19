@@ -2,7 +2,7 @@ export const updatePuchits = (puchits) => {
   localStorage.setItem('puchits', JSON.stringify(puchits));
 };
 
-export const updateGoal = (goal) => {
+export const updateGoalStorage = (goal) => {
   localStorage.setItem('puchits-goal', JSON.stringify(goal));
 };
 

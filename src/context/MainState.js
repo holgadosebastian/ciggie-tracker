@@ -1,6 +1,9 @@
 import React, { useReducer, useEffect } from 'react';
+
 import MainContext from './MainContext';
 import mainReducer from './mainReducer';
+
+import { updateGoalStorage } from '../utils/utils';
 
 const MainState = ({ children }) => {
   const initialState = {
@@ -35,6 +38,7 @@ const MainState = ({ children }) => {
       type: 'SET_GOAL',
       payload: goal
     });
+    updateGoalStorage(goal);
   };
 
   useEffect(() => {
