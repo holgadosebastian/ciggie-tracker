@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Home from './pages/home';
-import History from './pages/history';
+import Home from './pages/Home';
+import History from './pages/History';
 
 import Navbar from './layout/navbar';
 import MainState from './context/MainState';
