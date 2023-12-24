@@ -24,6 +24,12 @@ export default (state, action) => {
         goal: action.payload
       };
     }
+    case 'SET_DELAY': {
+      return {
+        ...state,
+        delay: action.payload
+      };
+    }
     default:
       return state;
   }

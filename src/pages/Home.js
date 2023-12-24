@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import cn from 'classnames';
 
 import { Icon, Surface, Button } from '../components';
-import { getDailyPuchits, getTimeString } from '../lib/utils';
+import { getDailyPuchits, getTimeString, msToTime } from '../lib/utils';
 import MainContext from '../context/MainContext';
 
 const Home = ({ todayDate }) => {
@@ -33,9 +33,11 @@ const Counter = ({ todayDate, todayPuchits }) => {
       >
         <p className='mb-2'>{todayDate}</p>
         <div className='rounded-full border-4 border-solid border-white w-32 h-32 flex justify-center items-center'>
-          <div className='flex items-center gap-2'>
+          <div className='flex items-center justify-center gap-2 relative w-full'>
             <span className='text-5xl'>{todayPuchits.length}</span>
             {goal > 0 && <span className='text-xl'>/ {goal}</span>}
+
+            <DelayTimer className='absolute top-full' />
           </div>
         </div>
         <Button className='mt-4' onClick={() => addCigarette()}>
@@ -44,6 +46,41 @@ const Counter = ({ todayDate, todayPuchits }) => {
       </Surface>
     </div>
   );
+};
+
+const DelayTimer = ({ className }) => {
+  const { delay, cigarettes } = useContext(MainContext);
+  const [delayText, setDelayText] = useState(null);
+
+  const lastCigarreteDate = useMemo(() => {
+    return cigarettes
+      .map(({ date }) => date)
+      .sort((a, b) => a - b)
+      .slice(-1)[0];
+  }, [cigarettes]);
+
+  const updateDelayText = () => {
+    const dateNow = Date.now();
+    const progressTime = dateNow - lastCigarreteDate;
+    const delayProgress = delay - progressTime;
+
+    if (delayProgress > 0) {
+      setDelayText(msToTime(delayProgress));
+    } else {
+      setDelayText('Ready');
+    }
+  };
+
+  useEffect(() => {
+    updateDelayText();
+    const interval = setInterval(() => {
+      updateDelayText();
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [lastCigarreteDate]);
+
+  return <p className={cn('text-xs', className)}>{delayText}</p>;
 };
 
 const CigarettesList = ({ cigarettes }) => {

@@ -3,11 +3,16 @@ import React, { useReducer, useEffect } from 'react';
 import MainContext from './MainContext';
 import mainReducer from './mainReducer';
 
-import { updateGoalStorage, updateCigarettesStorage } from '../lib/utils';
+import {
+  updateGoalStorage,
+  updateDelayStorage,
+  updateCigarettesStorage
+} from '../lib/utils';
 
 const MainState = ({ children }) => {
   const initialState = {
     goal: parseInt(localStorage.getItem('puchits-goal') || '0'),
+    delay: parseInt(localStorage.getItem('puchits-delay') || '0'),
     cigarettes: JSON.parse(localStorage.getItem('puchits') || '[]')
   };
   const [state, dispatch] = useReducer(mainReducer, initialState);
@@ -34,6 +39,14 @@ const MainState = ({ children }) => {
     updateGoalStorage(goal);
   };
 
+  const setDelay = (delay) => {
+    dispatch({
+      type: 'SET_DELAY',
+      payload: delay
+    });
+    updateDelayStorage(delay);
+  };
+
   useEffect(() => {
     updateCigarettesStorage(state.cigarettes);
   }, [state.cigarettes]);
@@ -44,7 +57,7 @@ const MainState = ({ children }) => {
 
   return (
     <MainContext.Provider
-      value={{ ...state, setGoal, addCigarette, removeCigarette }}
+      value={{ ...state, setGoal, setDelay, addCigarette, removeCigarette }}
     >
       {children}
     </MainContext.Provider>
