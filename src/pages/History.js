@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { getGroupedPuchits } from '../utils/utils';
+import { getGroupedPuchits } from '../lib/utils';
 import MainContext from '../context/MainContext';
 
 const History = ({ puchits }) => {

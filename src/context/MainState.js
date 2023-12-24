@@ -3,7 +3,7 @@ import React, { useReducer, useEffect } from 'react';
 import MainContext from './MainContext';
 import mainReducer from './mainReducer';
 
-import { updateGoalStorage, updateCigarettesStorage } from '../utils/utils';
+import { updateGoalStorage, updateCigarettesStorage } from '../lib/utils';
 
 const MainState = ({ children }) => {
   const initialState = {

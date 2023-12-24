@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import cn from 'classnames';
 
 import { Icon, Surface, Button } from '../components';
-import { getDailyPuchits, getTimeString } from '../utils/utils';
+import { getDailyPuchits, getTimeString } from '../lib/utils';
 import MainContext from '../context/MainContext';
 
 const Home = ({ todayDate }) => {
