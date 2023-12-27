@@ -10,6 +10,10 @@ import {
   updateCigarettesStorage
 } from '../lib/utils';
 
+const updateThemeColor = (colorName) => {
+  document.documentElement.setAttribute('theme', colorName);
+};
+
 const MainState = ({ children }) => {
   const tabs = JSON.parse(localStorage.getItem('HABIT_TRACKER::TABS') || '[]');
   let currentTab;
@@ -86,6 +90,7 @@ const MainState = ({ children }) => {
 
     localStorage.setItem('HABIT_TRACKER::TABS', JSON.stringify(updatedTabs));
     const updatedCurrentTab = updatedTabs.find(({ current }) => current);
+    updateThemeColor(updatedCurrentTab.themeColor);
     dispatch({
       type: 'SET_CURRENT_TAB',
       payload: updatedCurrentTab
@@ -122,6 +127,10 @@ const MainState = ({ children }) => {
       payload: id
     });
   };
+
+  useEffect(() => {
+    updateThemeColor(currentTab.themeColor);
+  }, []);
 
   useEffect(() => {
     updateCigarettesStorage(state.cigarettes);

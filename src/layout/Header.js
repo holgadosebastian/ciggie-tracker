@@ -13,7 +13,7 @@ const Header = () => {
     <>
       <Surface
         as='header'
-        className='fixed inset-x-0 top-0 py-2 px-4 h-10 flex gap-x-3 justify-between bg-violet-700'
+        className='fixed inset-x-0 top-0 py-2 px-4 h-10 flex gap-x-3 justify-between'
       >
         <button onClick={() => setMenuOpen(!menuOpen)}>
           <Icon name='navicon' />

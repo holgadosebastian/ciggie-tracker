@@ -17,7 +17,8 @@ export const Surface = ({
     md: 'rounded-md'
   };
   const backgroundStyles = {
-    dark: 'bg-violet-900',
+    light: 'bg-light',
+    dark: 'bg-darker',
     white: 'bg-white',
     transparent: ''
   };

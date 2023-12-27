@@ -17,11 +17,29 @@ export const Input = ({ className, ...props }) => {
   );
 };
 
-export const FormField = ({ label, ...props }) => {
+export const Select = ({ className, children, ...props }) => {
+  return (
+    <select
+      className={cn(
+        className,
+        'bg-transparent border-white border rounded px-4 h-10'
+      )}
+      {...props}
+    >
+      {children}
+    </select>
+  );
+};
+
+export const FormField = ({ type = 'text', label, children, ...props }) => {
   return (
     <div className='flex flex-col gap-2'>
       <Label>{label}</Label>
-      <Input {...props} />
+      {type === 'select' ? (
+        <Select {...props}>{children}</Select>
+      ) : (
+        <Input {...props} />
+      )}
     </div>
   );
 };

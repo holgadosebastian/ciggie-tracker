@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --teal-light: #2dd4bf;
+    --teal-darker: #134e4a;
+
+    --yellow-light: #facc15;
+    --yellow-darker: #713f12;
+
+    --sky-light: #38bdf8;
+    --sky-darker: #0c4a6e;
+
+    --violet-light: #a78bfa;
+    --violet-darker: #4c1d95;
+
+    --pink-light: #f472b6;
+    --pink-darker: #831843;
+  }
+
+  [theme='teal'] {
+    --color-light: var(--teal-light);
+    --color-darker: var(--teal-darker);
+  }
+
+  [theme='yellow'] {
+    --color-light: var(--yellow-light);
+    --color-darker: var(--yellow-darker);
+  }
+
+  [theme='sky'] {
+    --color-light: var(--sky-light);
+    --color-darker: var(--sky-darker);
+  }
+
+  [theme='violet'] {
+    --color-light: var(--violet-light);
+    --color-darker: var(--violet-darker);
+  }
+
+  [theme='pink'] {
+    --color-light: var(--pink-light);
+    --color-darker: var(--pink-darker);
+  }
+}

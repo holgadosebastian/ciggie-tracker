@@ -3,6 +3,7 @@ import cn from 'classnames';
 
 import { Icon, Surface, Button, FormField } from '../components';
 import { getDailyPuchits, getTimeString, msToTime } from '../lib/utils';
+import { COLORS } from '../lib/const';
 import MainContext from '../context/MainContext';
 
 const Home = ({ todayDate }) => {
@@ -177,7 +178,7 @@ const Tabs = () => {
         background='white'
         onClick={() => setNewTabOpen(true)}
       >
-        NEW
+        <Icon name='plus' />
       </Surface>
       <NewTab isOpen={newTabOpen} onClose={() => setNewTabOpen(false)} />
     </Surface>
@@ -219,9 +220,16 @@ const NewTab = ({ isOpen, onClose }) => {
         <FormField
           label='Color'
           name='themeColor'
+          type='select'
           value={themeColor}
           onChange={(e) => setThemeColor(e.target.value)}
-        />
+        >
+          {Object.values(COLORS).map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </FormField>
         <Button type='submit'>ADD</Button>
       </form>
     </Surface>
