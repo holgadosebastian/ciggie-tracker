@@ -20,9 +20,9 @@ export const Button = ({
     <Surface
       className={styles}
       as='button'
-      {...props}
       rounded='default'
       background={background[variant]}
+      {...props}
     >
       {children}
     </Surface>

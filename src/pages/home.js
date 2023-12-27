@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import cn from 'classnames';
 
-import { Icon, Surface, Button } from '../components';
+import { Icon, Surface, Button, FormField } from '../components';
 import { getDailyPuchits, getTimeString, msToTime } from '../lib/utils';
 import MainContext from '../context/MainContext';
 
@@ -200,19 +200,24 @@ const NewTab = ({ isOpen, onClose }) => {
 
   return (
     <Surface className='absolute bottom-0 w-full bg-violet-900' padding='md'>
-      <button type='button' onClick={() => onClose()}>
-        Close
+      <button
+        className='absolute top-4 right-4'
+        type='button'
+        onClick={() => onClose()}
+      >
+        <Icon name='close' />
       </button>
-      <p>New Tab</p>
-      <form onSubmit={handleSubmit}>
-        <input
-          className='text-black'
+
+      <p className='text-xl mb-5'>Add a New Tab</p>
+      <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+        <FormField
+          label='Name'
           name='name'
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <input
-          className='text-black'
+        <FormField
+          label='Color'
           name='themeColor'
           value={themeColor}
           onChange={(e) => setThemeColor(e.target.value)}
