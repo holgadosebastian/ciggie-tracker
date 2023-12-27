@@ -6,8 +6,9 @@ import { msToTime } from '../../lib/utils';
 
 import MainContext from '../../context/MainContext';
 
-export const Counter = ({ todayDate, todayPuchits }) => {
-  const { goal, addCigarette } = useContext(MainContext);
+export const Counter = ({ todayDate, todayOccurrences }) => {
+  const { currentTab, addOcurrence } = useContext(MainContext);
+  const { goal } = currentTab;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -21,13 +22,13 @@ export const Counter = ({ todayDate, todayPuchits }) => {
           <p className='mb-2'>{todayDate}</p>
           <div className='rounded-full border-4 border-solid border-white w-32 h-32 flex justify-center items-center'>
             <div className='flex items-center justify-center gap-2 relative w-full'>
-              <span className='text-5xl'>{todayPuchits.length}</span>
+              <span className='text-5xl'>{todayOccurrences.length}</span>
               {goal > 0 && <span className='text-xl'>/ {goal}</span>}
 
               <DelayTimer className='absolute top-full' />
             </div>
           </div>
-          <Button className='mt-4' onClick={() => addCigarette()}>
+          <Button className='mt-4' onClick={() => addOcurrence()}>
             ADD
           </Button>
 
@@ -48,19 +49,20 @@ export const Counter = ({ todayDate, todayPuchits }) => {
 };
 
 const DelayTimer = ({ className }) => {
-  const { delay, cigarettes } = useContext(MainContext);
+  const { currentTab } = useContext(MainContext);
+  const { delay, occurrences } = currentTab;
   const [delayText, setDelayText] = useState(null);
 
-  const lastCigarreteDate = useMemo(() => {
-    return cigarettes
+  const lastOccurrenceDate = useMemo(() => {
+    return occurrences
       .map(({ date }) => date)
       .sort((a, b) => a - b)
       .slice(-1)[0];
-  }, [cigarettes]);
+  }, [occurrences]);
 
   const updateDelayText = () => {
     const dateNow = Date.now();
-    const progressTime = dateNow - lastCigarreteDate;
+    const progressTime = dateNow - lastOccurrenceDate;
     const delayProgress = delay - progressTime;
 
     if (delayProgress > 0) {
@@ -77,7 +79,7 @@ const DelayTimer = ({ className }) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [lastCigarreteDate]);
+  }, [occurrences]);
 
   return <p className={cn('text-xs', className)}>{delayText}</p>;
 };
@@ -120,7 +122,8 @@ const MenuDrawer = ({ isOpen, onClose }) => {
 };
 
 const GoalUpdate = () => {
-  const { goal, setGoal } = useContext(MainContext);
+  const { currentTab, setGoal } = useContext(MainContext);
+  const { goal } = currentTab;
   const [updatedGoal, setUpdatedGoal] = useState(goal || 0);
 
   return (

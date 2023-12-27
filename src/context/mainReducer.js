@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 export default (state, action) => {
   switch (action.type) {
     case 'ADD_TAB':
@@ -12,16 +10,16 @@ export default (state, action) => {
         ...state,
         currentTab: action.payload
       };
-    case 'ADD_CIGARETTE':
+    case 'ADD_OCURRENCE':
+      const { currentTab } = state;
+      const { occurrences } = currentTab;
+
       return {
         ...state,
-        cigarettes: [
-          ...state.cigarettes,
-          {
-            id: uuidv4(),
-            date: Date.now()
-          }
-        ]
+        currentTab: {
+          ...currentTab,
+          occurrences: [...occurrences, action.payload]
+        }
       };
     case 'REMOVE_CIGARETTE':
       return {
@@ -29,15 +27,25 @@ export default (state, action) => {
         cigarettes: state.cigarettes.filter(({ id }) => id !== action.payload)
       };
     case 'SET_GOAL': {
+      const { currentTab } = state;
+
       return {
         ...state,
-        goal: action.payload
+        currentTab: {
+          ...currentTab,
+          goal: action.payload
+        }
       };
     }
     case 'SET_DELAY': {
+      const { currentTab } = state;
+
       return {
         ...state,
-        delay: action.payload
+        currentTab: {
+          ...currentTab,
+          delay: action.payload
+        }
       };
     }
     default:

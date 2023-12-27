@@ -1,14 +1,8 @@
-export const updateCigarettesStorage = (cigarettes) => {
-  localStorage.setItem('puchits', JSON.stringify(cigarettes));
-};
+export const storeTabInfo = (id, data) =>
+  localStorage.setItem(`HABIT_TRACKER::TAB::${id}`, JSON.stringify(data));
 
-export const updateGoalStorage = (goal) => {
-  localStorage.setItem('puchits-goal', JSON.stringify(goal));
-};
-
-export const updateDelayStorage = (delay) => {
-  localStorage.setItem('puchits-delay', JSON.stringify(delay));
-};
+export const getStoredTabInfo = (id) =>
+  JSON.parse(localStorage.getItem(`HABIT_TRACKER::TAB::${id}`));
 
 export const getDailyPuchits = (puchits) => {
   const todayDate = new Date();

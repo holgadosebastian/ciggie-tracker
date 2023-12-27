@@ -8,29 +8,33 @@ import { COLORS } from '../../lib/const';
 import MainContext from '../../context/MainContext';
 
 const Home = ({ todayDate }) => {
-  const [todayPuchits, setTodayPuchits] = useState([]);
-  const { cigarettes } = useContext(MainContext);
+  const [todayOccurrences, setTodayOccurrences] = useState([]);
+  const { currentTab } = useContext(MainContext);
+  const { occurrences } = currentTab;
+
+  console.log('currentTab', currentTab);
+  console.log('occurrences', occurrences);
 
   useEffect(() => {
-    setTodayPuchits(getDailyPuchits(cigarettes).reverse());
-  }, [cigarettes]);
+    setTodayOccurrences(getDailyPuchits(occurrences).reverse());
+  }, [occurrences]);
 
   return (
     <div className='h-[calc(100vh-6.5rem)]'>
-      <Counter todayDate={todayDate} todayPuchits={todayPuchits} />
-      <CigarettesList cigarettes={todayPuchits} />
+      <Counter todayDate={todayDate} todayOccurrences={todayOccurrences} />
+      <OccurencesList occurrences={todayOccurrences} />
       <Tabs />
     </div>
   );
 };
 
-const CigarettesList = ({ cigarettes }) => {
+const OccurencesList = ({ occurrences }) => {
   const [activePuchitId, setActivePuchitId] = useState(null);
 
   return (
     <div className='h-3/6 overflow-y-auto p-4'>
       <ul className='flex flex-col gap-2'>
-        {cigarettes.map(({ id, date }) => (
+        {occurrences.map(({ id, date }) => (
           <CigaretteItem
             id={id}
             key={id}

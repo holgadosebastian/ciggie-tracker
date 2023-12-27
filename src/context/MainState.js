@@ -4,11 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import MainContext from './MainContext';
 import mainReducer from './mainReducer';
 
-import {
-  updateGoalStorage,
-  updateDelayStorage,
-  updateCigarettesStorage
-} from '../lib/utils';
+import { storeTabInfo, getStoredTabInfo } from '../lib/utils';
 
 const updateThemeColor = (colorName) => {
   document.documentElement.setAttribute('theme', colorName);
@@ -26,36 +22,39 @@ const MainState = ({ children }) => {
       current: true
     });
     localStorage.setItem('HABIT_TRACKER::TABS', JSON.stringify(tabs));
-    currentTab = tabs[0];
-    localStorage.setItem(
-      `HABIT_TRACKER::TAB::${currentTab.id}`,
-      JSON.stringify({
-        ...currentTab,
-        occurrences: [],
-        goal: 0,
-        delay: 0
-      })
-    );
+    currentTab = {
+      ...tabs[0],
+      occurrences: [],
+      goal: 0,
+      delay: 0
+    };
+    storeTabInfo(currentTab.id, currentTab);
   } else {
     const currentTabId = tabs.find(({ current }) => current).id;
-    currentTab = JSON.parse(
-      localStorage.getItem(`HABIT_TRACKER::TAB::${currentTabId}`) || '{}'
-    );
+    currentTab = getStoredTabInfo(currentTabId);
   }
 
   const initialState = {
-    goal: parseInt(localStorage.getItem('puchits-goal') || '0'),
-    delay: parseInt(localStorage.getItem('puchits-delay') || '0'),
-    cigarettes: JSON.parse(localStorage.getItem('puchits') || '[]'),
     tabs,
     currentTab
   };
   const [state, dispatch] = useReducer(mainReducer, initialState);
 
-  const addCigarette = (cigarette) => {
+  const addOcurrence = (ocurrence = {}) => {
+    const { currentTab } = state;
+    const newOcurrence = {
+      id: uuidv4(),
+      date: ocurrence.date || Date.now()
+    };
+
+    storeTabInfo(currentTab.id, {
+      ...currentTab,
+      occurrences: [...currentTab.occurrences, newOcurrence]
+    });
+
     dispatch({
-      type: 'ADD_CIGARETTE',
-      payload: cigarette
+      type: 'ADD_OCURRENCE',
+      payload: newOcurrence
     });
   };
 
@@ -67,19 +66,31 @@ const MainState = ({ children }) => {
   };
 
   const setGoal = (goal) => {
+    const { currentTab } = state;
+
+    storeTabInfo(currentTab.id, {
+      ...currentTab,
+      goal
+    });
+
     dispatch({
       type: 'SET_GOAL',
       payload: goal
     });
-    updateGoalStorage(goal);
   };
 
   const setDelay = (delay) => {
+    const { currentTab } = state;
+
+    storeTabInfo(currentTab.id, {
+      ...currentTab,
+      delay
+    });
+
     dispatch({
       type: 'SET_DELAY',
       payload: delay
     });
-    updateDelayStorage(delay);
   };
 
   const setCurrentTab = (id) => {
@@ -89,7 +100,8 @@ const MainState = ({ children }) => {
     }));
 
     localStorage.setItem('HABIT_TRACKER::TABS', JSON.stringify(updatedTabs));
-    const updatedCurrentTab = updatedTabs.find(({ current }) => current);
+    const updatedCurrentTab = getStoredTabInfo(id);
+
     updateThemeColor(updatedCurrentTab.themeColor);
     dispatch({
       type: 'SET_CURRENT_TAB',
@@ -110,10 +122,7 @@ const MainState = ({ children }) => {
       JSON.stringify([...tabs, newTab])
     );
 
-    localStorage.setItem(
-      `HABIT_TRACKER::TAB::${newTab.id}`,
-      JSON.stringify(newTab)
-    );
+    storeTabInfo(newTab.id, { ...newTab, occurrences: [], goal: 0, delay: 0 });
 
     dispatch({
       type: 'ADD_TAB',
@@ -121,6 +130,9 @@ const MainState = ({ children }) => {
     });
   };
 
+  /**
+   * TODO: Add remove functionality
+   */
   const removeTab = (id) => {
     dispatch({
       type: 'REMOVE_TAB',
@@ -132,21 +144,13 @@ const MainState = ({ children }) => {
     updateThemeColor(currentTab.themeColor);
   }, []);
 
-  useEffect(() => {
-    updateCigarettesStorage(state.cigarettes);
-  }, [state.cigarettes]);
-
-  useEffect(() => {
-    updateGoalStorage(state.goal);
-  }, [state.goal]);
-
   return (
     <MainContext.Provider
       value={{
         ...state,
         setGoal,
         setDelay,
-        addCigarette,
+        addOcurrence,
         removeCigarette,
         addTab,
         setCurrentTab
