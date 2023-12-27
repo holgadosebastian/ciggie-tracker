@@ -2,6 +2,16 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default (state, action) => {
   switch (action.type) {
+    case 'ADD_TAB':
+      return {
+        ...state,
+        tabs: [...state.tabs, action.payload]
+      };
+    case 'SET_CURRENT_TAB':
+      return {
+        ...state,
+        currentTab: action.payload
+      };
     case 'ADD_CIGARETTE':
       return {
         ...state,
