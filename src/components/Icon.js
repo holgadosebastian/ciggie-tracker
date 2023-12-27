@@ -1,5 +1,5 @@
 import cn from 'classnames';
 
-export const Icon = ({ name }) => (
-  <span className={cn('fa', { [`fa-${name}`]: name })} />
+export const Icon = ({ className, name }) => (
+  <span className={cn(className, 'fa', { [`fa-${name}`]: name })} />
 );
