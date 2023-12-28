@@ -18,7 +18,7 @@ const Home = ({ todayDate }) => {
 
   return (
     <div className='h-[calc(100vh-6.5rem)]'>
-      <Container className='h-full'>
+      <Container className='h-full flex flex-col gap-4'>
         <Counter todayDate={todayDate} todayOccurrences={todayOccurrences} />
         <OccurrencesList occurrences={todayOccurrences} />
       </Container>

@@ -15,7 +15,7 @@ export const Counter = ({ todayOccurrences }) => {
 
   return (
     <>
-      <div className='flex align-center h-3/6 w-full justify-center items-center'>
+      <div className='flex align-center w-full justify-center items-center'>
         <Surface
           className='flex flex-col justify-center items-center w-full relative'
           rounded='md'
