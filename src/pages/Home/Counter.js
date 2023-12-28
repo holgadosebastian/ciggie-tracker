@@ -10,7 +10,7 @@ import { Settings } from './Settings';
 
 export const Counter = ({ todayOccurrences }) => {
   const { currentTab, addOcurrence } = useContext(MainContext);
-  const { goal } = currentTab;
+  const { goal, delay } = currentTab;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -28,8 +28,7 @@ export const Counter = ({ todayOccurrences }) => {
             <div className='flex items-center justify-center gap-2 relative w-full'>
               <span className='text-5xl'>{todayOccurrences.length}</span>
               {goal > 0 && <span className='text-xl'>/ {goal}</span>}
-
-              <DelayTimer className='absolute top-full' />
+              {delay > 0 && <DelayTimer className='absolute top-full' />}
             </div>
           </div>
           <Button className='mt-4' onClick={() => addOcurrence()}>
