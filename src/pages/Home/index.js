@@ -12,9 +12,6 @@ const Home = ({ todayDate }) => {
   const { currentTab } = useContext(MainContext);
   const { occurrences } = currentTab;
 
-  console.log('currentTab', currentTab);
-  console.log('occurrences', occurrences);
-
   useEffect(() => {
     setTodayOccurrences(getDailyPuchits(occurrences).reverse());
   }, [occurrences]);
