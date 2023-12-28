@@ -3,7 +3,7 @@ import cn from 'classnames';
 export const Surface = ({
   children,
   as = 'div',
-  background = 'dark',
+  background = 'darker',
   rounded = 'none',
   padding = 'none',
   className,
@@ -17,8 +17,10 @@ export const Surface = ({
     md: 'rounded-md'
   };
   const backgroundStyles = {
+    lighter: 'bg-lighter',
     light: 'bg-light',
-    dark: 'bg-darker',
+    dark: 'bg-dark',
+    darker: 'bg-darker',
     white: 'bg-white',
     transparent: ''
   };

@@ -73,7 +73,7 @@ const CigaretteItem = ({ id, date, activePuchitId, onSetActivePuchit }) => {
           'text-violet-900': activePuchitId === id
         }
       )}
-      background={activePuchitId === id ? 'white' : 'dark'}
+      background={activePuchitId === id ? 'white' : 'darker'}
     >
       <p>{getTimeString(date)}</p>
       {activePuchitId === id && (
@@ -108,7 +108,7 @@ const Tabs = () => {
           as='button'
           className='uppercase h-10 px-4 leading-10 text-xs'
           onClick={() => setCurrentTab(id)}
-          background={currentTab.id === id ? 'light' : 'dark'}
+          background={currentTab.id === id ? 'dark' : 'darker'}
         >
           {name}
         </Surface>

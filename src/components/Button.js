@@ -9,7 +9,7 @@ export const Button = ({
   ...props
 }) => {
   const styles = cn(className, 'h-10', 'px-6', 'uppercase', {
-    'text-violet-700': variant === 'primary'
+    'text-dark': variant === 'primary'
   });
 
   const background = {

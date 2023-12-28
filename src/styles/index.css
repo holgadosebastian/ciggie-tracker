@@ -4,44 +4,64 @@
 
 @layer base {
   :root {
+    --teal-lighter: #99f6e4;
     --teal-light: #2dd4bf;
+    --teal-dark: #0d9488;
     --teal-darker: #134e4a;
 
+    --yellow-lighter: #facc15;
     --yellow-light: #facc15;
+    --yellow-dark: #ca8a04;
     --yellow-darker: #713f12;
 
+    --sky-lighter: #bae6fd;
     --sky-light: #38bdf8;
+    --sky-dark: #0284c7;
     --sky-darker: #0c4a6e;
 
+    --violet-lighter: #ddd6fe;
     --violet-light: #a78bfa;
+    --violet-dark: #7c3aed;
     --violet-darker: #4c1d95;
 
+    --pink-lighter: #fbcfe8;
     --pink-light: #f472b6;
+    --pink-dark: #db2777;
     --pink-darker: #831843;
   }
 
   [theme='teal'] {
+    --color-lighter: var(--teal-lighter);
     --color-light: var(--teal-light);
+    --color-dark: var(--teal-dark);
     --color-darker: var(--teal-darker);
   }
 
   [theme='yellow'] {
+    --color-lighter: var(--yellow-lighter);
     --color-light: var(--yellow-light);
+    --color-dark: var(--yellow-dark);
     --color-darker: var(--yellow-darker);
   }
 
   [theme='sky'] {
+    --color-lighter: var(--sky-lighter);
     --color-light: var(--sky-light);
+    --color-dark: var(--sky-dark);
     --color-darker: var(--sky-darker);
   }
 
   [theme='violet'] {
+    --color-lighter: var(--violet-lighter);
     --color-light: var(--violet-light);
+    --color-dark: var(--violet-dark);
     --color-darker: var(--violet-darker);
   }
 
   [theme='pink'] {
+    --color-lighter: var(--pink-lighter);
     --color-light: var(--pink-light);
+    --color-dark: var(--pink-dark);
     --color-darker: var(--pink-darker);
   }
 }
