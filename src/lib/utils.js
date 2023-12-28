@@ -7,8 +7,40 @@ export const getStoredTabInfo = (id) =>
 export const storeTabsData = (data) =>
   localStorage.setItem('HABIT_TRACKER::TABS', JSON.stringify(data));
 
-export const getStoredTabsData = () =>
-  JSON.parse(localStorage.getItem('HABIT_TRACKER::TABS') || '[]');
+export const getStoredTabsData = () => {
+  const storedData = JSON.parse(
+    localStorage.getItem('HABIT_TRACKER::TABS') || '[]'
+  );
+
+  if (storedData.length === 0) {
+    const oldData = JSON.parse(localStorage.getItem('puchits') || '[]');
+
+    if (oldData.length > 0) {
+      const tabs = [
+        {
+          id: 'old-data',
+          name: 'Item 1',
+          themeColor: 'violet',
+          current: true
+        }
+      ];
+
+      storeTabsData(tabs);
+      storeTabInfo(tabs[0].id, {
+        ...tabs[0],
+        occurrences: oldData,
+        goal: 0,
+        delay: 0
+      });
+
+      return tabs;
+    }
+
+    return storedData;
+  }
+
+  return storedData;
+};
 
 export const getDailyOccurrences = (occurrences) => {
   const todayDate = new Date();
