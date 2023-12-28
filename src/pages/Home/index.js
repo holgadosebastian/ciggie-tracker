@@ -101,13 +101,14 @@ const Tabs = () => {
   const [newTabOpen, setNewTabOpen] = useState(false);
 
   return (
-    <Surface as='div' className='h-10 bg-black bg-opacity-20 flex relative'>
+    <Surface as='div' className='h-10 flex relative'>
       {tabs.map(({ id, name }) => (
         <Surface
           key={id}
           as='button'
-          className='uppercase h-10 px-4 leading-10'
+          className='uppercase h-10 px-4 leading-10 text-xs'
           onClick={() => setCurrentTab(id)}
+          background={currentTab.id === id ? 'light' : 'dark'}
         >
           {name}
         </Surface>

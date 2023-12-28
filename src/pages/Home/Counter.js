@@ -8,7 +8,7 @@ import MainContext from '../../context/MainContext';
 
 import { Settings } from './Settings';
 
-export const Counter = ({ todayDate, todayOccurrences }) => {
+export const Counter = ({ todayOccurrences }) => {
   const { currentTab, addOcurrence } = useContext(MainContext);
   const { goal } = currentTab;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,7 +21,7 @@ export const Counter = ({ todayDate, todayOccurrences }) => {
           rounded='md'
           padding='lg'
         >
-          <p className='mb-2'>{todayDate}</p>
+          <p className='mb-2'>{currentTab.name}</p>
           <div className='rounded-full border-4 border-solid border-white w-32 h-32 flex justify-center items-center'>
             <div className='flex items-center justify-center gap-2 relative w-full'>
               <span className='text-5xl'>{todayOccurrences.length}</span>
