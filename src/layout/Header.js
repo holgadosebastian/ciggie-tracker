@@ -20,12 +20,12 @@ const Header = () => {
           >
             Home
           </Link>
-          <Link
+          {/* <Link
             to='/history'
             className={cn('uppercase', { underline: pathname === '/history' })}
           >
             History
-          </Link>
+          </Link> */}
         </nav>
       </Surface>
     </>
