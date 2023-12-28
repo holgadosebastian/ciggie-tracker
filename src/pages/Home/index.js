@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext, useMemo } from 'react';
 
 import { Counter } from './Counter';
 import { OccurrencesList } from './OccurrencesList';
-import { Icon, Surface, Button, FormField } from '../../components';
-import { getDailyPuchits, getTimeString } from '../../lib/utils';
+import { Icon, Surface, Button, FormField, Container } from '../../components';
+import { getDailyPuchits } from '../../lib/utils';
 import { COLORS } from '../../lib/const';
 import MainContext from '../../context/MainContext';
 
@@ -18,8 +18,10 @@ const Home = ({ todayDate }) => {
 
   return (
     <div className='h-[calc(100vh-6.5rem)]'>
-      <Counter todayDate={todayDate} todayOccurrences={todayOccurrences} />
-      <OccurrencesList occurrences={todayOccurrences} />
+      <Container className='h-full'>
+        <Counter todayDate={todayDate} todayOccurrences={todayOccurrences} />
+        <OccurrencesList occurrences={todayOccurrences} />
+      </Container>
       <Tabs />
     </div>
   );

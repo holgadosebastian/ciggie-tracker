@@ -9,7 +9,7 @@ export const OccurrencesList = ({ occurrences }) => {
   const [activeOccurrenceId, setActiveOccurrenceId] = useState(null);
 
   return (
-    <div className='h-3/6 overflow-y-auto p-4'>
+    <div className='h-3/6 overflow-y-auto mt-4'>
       <ul className='flex flex-col gap-2'>
         {occurrences.map(({ id, date }) => (
           <OccurrenceItem
