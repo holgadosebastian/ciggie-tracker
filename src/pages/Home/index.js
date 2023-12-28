@@ -46,7 +46,7 @@ const Tabs = () => {
       ))}
       <Surface
         as='button'
-        className='uppercase h-10 px-4 leading-10 text-violet-900 ml-auto'
+        className='uppercase h-10 px-4 leading-10 text-darker ml-auto'
         background='white'
         onClick={() => setNewTabOpen(true)}
       >
@@ -72,7 +72,11 @@ const NewTab = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <Surface className='absolute bottom-0 w-full bg-violet-900' padding='md'>
+    <Surface
+      className='absolute bottom-0 w-full'
+      padding='md'
+      background='dark'
+    >
       <button
         className='absolute top-4 right-4'
         type='button'
