@@ -4,6 +4,12 @@ export const storeTabInfo = (id, data) =>
 export const getStoredTabInfo = (id) =>
   JSON.parse(localStorage.getItem(`HABIT_TRACKER::TAB::${id}`));
 
+export const storeTabsData = (data) =>
+  localStorage.setItem('HABIT_TRACKER::TABS', JSON.stringify(data));
+
+export const getStoredTabsData = () =>
+  JSON.parse(localStorage.getItem('HABIT_TRACKER::TABS') || '[]');
+
 export const getDailyPuchits = (puchits) => {
   const todayDate = new Date();
   return puchits.filter(

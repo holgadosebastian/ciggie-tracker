@@ -4,14 +4,19 @@ import { v4 as uuidv4 } from 'uuid';
 import MainContext from './MainContext';
 import mainReducer from './mainReducer';
 
-import { storeTabInfo, getStoredTabInfo } from '../lib/utils';
+import {
+  storeTabInfo,
+  getStoredTabInfo,
+  storeTabsData,
+  getStoredTabsData
+} from '../lib/utils';
 
 const updateThemeColor = (colorName) => {
   document.documentElement.setAttribute('theme', colorName);
 };
 
 const MainState = ({ children }) => {
-  const tabs = JSON.parse(localStorage.getItem('HABIT_TRACKER::TABS') || '[]');
+  const tabs = getStoredTabsData();
   let currentTab;
 
   if (tabs.length === 0) {
@@ -21,7 +26,7 @@ const MainState = ({ children }) => {
       themeColor: 'violet',
       current: true
     });
-    localStorage.setItem('HABIT_TRACKER::TABS', JSON.stringify(tabs));
+    storeTabsData(tabs);
     currentTab = {
       ...tabs[0],
       occurrences: [],
@@ -99,7 +104,7 @@ const MainState = ({ children }) => {
       current: tab.id === id
     }));
 
-    localStorage.setItem('HABIT_TRACKER::TABS', JSON.stringify(updatedTabs));
+    storeTabsData(updatedTabs);
     const updatedCurrentTab = getStoredTabInfo(id);
 
     updateThemeColor(updatedCurrentTab.themeColor);
@@ -117,11 +122,7 @@ const MainState = ({ children }) => {
       themeColor
     };
 
-    localStorage.setItem(
-      'HABIT_TRACKER::TABS',
-      JSON.stringify([...tabs, newTab])
-    );
-
+    storeTabsData([...tabs, newTab]);
     storeTabInfo(newTab.id, { ...newTab, occurrences: [], goal: 0, delay: 0 });
 
     dispatch({
