@@ -10,9 +10,9 @@ export const storeTabsData = (data) =>
 export const getStoredTabsData = () =>
   JSON.parse(localStorage.getItem('HABIT_TRACKER::TABS') || '[]');
 
-export const getDailyPuchits = (puchits) => {
+export const getDailyOccurrences = (occurrences) => {
   const todayDate = new Date();
-  return puchits.filter(
+  return occurrences.filter(
     ({ date }) => todayDate.toDateString() === new Date(date).toDateString()
   );
 };

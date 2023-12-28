@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { Counter } from './Counter';
 import { OccurrencesList } from './OccurrencesList';
 import { Icon, Surface, Button, FormField, Container } from '../../components';
-import { getDailyPuchits } from '../../lib/utils';
+import { getDailyOccurrences } from '../../lib/utils';
 import { COLORS } from '../../lib/const';
 import MainContext from '../../context/MainContext';
 
@@ -13,7 +13,7 @@ const Home = ({ todayDate }) => {
   const { occurrences } = currentTab;
 
   useEffect(() => {
-    setTodayOccurrences(getDailyPuchits(occurrences).reverse());
+    setTodayOccurrences(getDailyOccurrences(occurrences).reverse());
   }, [occurrences]);
 
   return (
