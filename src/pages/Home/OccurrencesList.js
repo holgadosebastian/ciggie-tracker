@@ -4,14 +4,16 @@ import cn from 'classnames';
 import { Icon, Surface, Text } from '../../components';
 import { getTimeString } from '../../lib/utils';
 import MainContext from '../../context/MainContext';
+import { useOccurrences } from '../../hooks/useOccurrences';
 
-export const OccurrencesList = ({ occurrences }) => {
+export const OccurrencesList = () => {
   const [activeOccurrenceId, setActiveOccurrenceId] = useState(null);
+  const { todayOccurrences } = useOccurrences();
 
   return (
     <div className='overflow-y-auto mb-4'>
       <ul className='flex flex-col gap-2'>
-        {occurrences.map(({ id, date }) => (
+        {todayOccurrences.map(({ id, date }) => (
           <OccurrenceItem
             id={id}
             key={id}

@@ -5,13 +5,15 @@ import { Icon, Surface, Button, Text } from '../../components';
 import { msToTime } from '../../lib/utils';
 
 import MainContext from '../../context/MainContext';
+import { useOccurrences } from '../../hooks/useOccurrences';
 
 import { Settings } from './Settings';
 
-export const Counter = ({ todayOccurrences }) => {
+export const Counter = () => {
   const { currentTab, addOcurrence } = useContext(MainContext);
   const { goal, delay } = currentTab;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { todayOccurrencesCount } = useOccurrences();
 
   return (
     <>
@@ -26,7 +28,7 @@ export const Counter = ({ todayOccurrences }) => {
           </Text>
           <div className='rounded-full border-4 border-solid border-white w-32 h-32 flex justify-center items-center'>
             <div className='flex items-center justify-center gap-2 relative w-full'>
-              <span className='text-5xl'>{todayOccurrences.length}</span>
+              <span className='text-5xl'>{todayOccurrencesCount}</span>
               {goal > 0 && <span className='text-xl'>/ {goal}</span>}
               {delay > 0 && <DelayTimer className='absolute top-full' />}
             </div>
