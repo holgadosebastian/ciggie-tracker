@@ -10,6 +10,21 @@ export default (state, action) => {
         ...state,
         currentTab: action.payload
       };
+    case 'UPDATE_TAB':
+      return {
+        ...state,
+        tabs: state.tabs.map((tab) => {
+          if (action.payload.id === tab.id) {
+            return {
+              ...tab,
+              ...action.payload
+            };
+          }
+
+          return tab;
+        }),
+        currentTab: action.payload
+      };
     case 'ADD_OCURRENCE':
       const { currentTab } = state;
       const { occurrences } = currentTab;

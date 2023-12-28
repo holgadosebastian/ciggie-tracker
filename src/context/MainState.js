@@ -131,6 +131,31 @@ const MainState = ({ children }) => {
     });
   };
 
+  const updateTab = (data = {}) => {
+    storeTabsData(
+      tabs.map((tab) => {
+        if (currentTab.id === tab.id) {
+          return {
+            ...tab,
+            ...(data.name ? { name: data.name } : {})
+          };
+        }
+
+        return tab;
+      })
+    );
+
+    storeTabInfo(currentTab.id, { ...currentTab, ...data });
+
+    dispatch({
+      type: 'UPDATE_TAB',
+      payload: {
+        ...currentTab,
+        ...data
+      }
+    });
+  };
+
   /**
    * TODO: Add remove functionality
    */
@@ -154,7 +179,8 @@ const MainState = ({ children }) => {
         addOcurrence,
         removeCigarette,
         addTab,
-        setCurrentTab
+        setCurrentTab,
+        updateTab
       }}
     >
       {children}
