@@ -1,67 +1,39 @@
-import React, { useState, useEffect } from 'react'
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-} from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid'
+import React, { useState, useEffect } from 'react';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Home from './pages/home'
-import History from './pages/history'
+import Home from './pages/Home';
+import History from './pages/History';
 
-import Navbar from './layout/navbar'
-
-import { updatePuchits } from './utils/utils'
+import Header from './layout/Header';
+import MainState from './context/MainState';
 
 const App = () => {
-  const [puchits, setPuchits] = useState([])
-  const [todayDate, setTodayDate] = useState((new Date()).toLocaleDateString())
-  const [activePuchitId, setActivePuchitId] = useState(null)
+  const [todayDate, setTodayDate] = useState(new Date().toLocaleDateString());
 
   useEffect(() => {
-    const savedPuchits = localStorage.getItem('puchits') ? JSON.parse(localStorage.getItem('puchits')) : []
-    setPuchits(savedPuchits)
-
     setInterval(() => {
-      setTodayDate((new Date()).toLocaleDateString())
-    }, 1000)
-  }, [])
+      setTodayDate(
+        new Date().toLocaleDateString('en', {
+          month: 'long',
+          day: 'numeric'
+        })
+      );
+    }, 1000);
+  }, []);
 
-  const onAddPuchit = () => {
-    const newPuchit = {
-      id: uuidv4(),
-      date: new Date()
-    }
-
-    const updatedPuchits = [...puchits, newPuchit]
-    setPuchits(updatedPuchits)
-    updatePuchits(updatedPuchits)
-  }
-
-  const onRemovePuchit = puchitId => {
-    const updatedPuchits = puchits.filter(({ id }) => puchitId !== id)
-
-    setPuchits(updatedPuchits)
-    updatePuchits(updatedPuchits)
-  }
-  
   return (
-    <Router>
-      <Navbar />
-      <div>
-        <Routes>
-          <Route
-            path='/'
-            element={<Home puchits={puchits} todayDate={todayDate} onAddPuchit={onAddPuchit} onRemovePuchit={onRemovePuchit} onSetActivePuchit={setActivePuchitId} activePuchitId={activePuchitId} />}
-          ></Route>
-          <Route
-            path='/history'
-            element={<History puchits={puchits} />}
-          ></Route>
-        </Routes>
-      </div>
-    </Router>
-  )
-}
+    <MainState>
+      <Router>
+        <Header />
+        <div className='pt-16'>
+          <Routes>
+            <Route path='/' element={<Home todayDate={todayDate} />}></Route>
+            <Route path='/history' element={<History />}></Route>
+          </Routes>
+        </div>
+      </Router>
+    </MainState>
+  );
+};
 
 export default App;
