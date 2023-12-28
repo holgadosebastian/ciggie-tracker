@@ -3,7 +3,7 @@ import cn from 'classnames';
 
 import { Counter } from './Counter';
 import { Icon, Surface, Button, FormField } from '../../components';
-import { getDailyPuchits, getTimeString, msToTime } from '../../lib/utils';
+import { getDailyPuchits, getTimeString } from '../../lib/utils';
 import { COLORS } from '../../lib/const';
 import MainContext from '../../context/MainContext';
 
@@ -97,7 +97,7 @@ const CigaretteItem = ({ id, date, activePuchitId, onSetActivePuchit }) => {
 };
 
 const Tabs = () => {
-  const { currentTab, setCurrentTab, tabs, addTab } = useContext(MainContext);
+  const { currentTab, setCurrentTab, tabs } = useContext(MainContext);
   const [newTabOpen, setNewTabOpen] = useState(false);
 
   return (

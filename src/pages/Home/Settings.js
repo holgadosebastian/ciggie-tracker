@@ -10,6 +10,7 @@ export const Settings = ({ isOpen, onClose }) => {
     delay: 0,
     goal: 0
   });
+  const [delayMinutes, setDelayMinutes] = useState('0');
   const { currentTab, updateTab } = useContext(MainContext);
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export const Settings = ({ isOpen, onClose }) => {
       delay: currentTab.delay,
       goal: currentTab.goal
     });
+    setDelayMinutes(currentTab.delay / 60000);
   }, [currentTab]);
 
   const handleSettingsUpdate = (event) => {
@@ -27,9 +29,17 @@ export const Settings = ({ isOpen, onClose }) => {
     }));
   };
 
+  const handleDelayMinutesUpdate = (event) => {
+    setUpdatedSettings((oldSettings) => ({
+      ...oldSettings,
+      delay: parseInt(event.target.value) * 60 * 1000
+    }));
+
+    setDelayMinutes(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
     updateTab(updatedSettings);
   };
 
@@ -69,58 +79,15 @@ export const Settings = ({ isOpen, onClose }) => {
           value={updatedSettings.goal}
           onChange={handleSettingsUpdate}
         />
+        <FormField
+          label='Delay'
+          name='delay'
+          type='number'
+          value={delayMinutes}
+          onChange={handleDelayMinutesUpdate}
+        />
         <Button type='submit'>Update</Button>
       </form>
-    </div>
-  );
-};
-
-const DelayUpdate = () => {
-  const { delay, setDelay } = useContext(MainContext);
-  const [updatedDelay, setUpdatedDelay] = useState([0, 0]);
-
-  const hours = updatedDelay[0];
-  const minutes = updatedDelay[1];
-
-  const updateHours = (updatedHours) => {
-    setUpdatedDelay([updatedHours, minutes]);
-  };
-
-  const updateMinutes = (updatedMinutes) => {
-    setUpdatedDelay([hours, updatedMinutes]);
-  };
-
-  const delayToMs = () => {
-    return (hours * 60 * 60 + minutes * 60) * 1000;
-  };
-
-  return (
-    <div>
-      <p className='mb-2'>Set your delay</p>
-      <div className='flex h-10 w-full'>
-        <input
-          className='bg-transparent border-white border rounded rounded-r-none px-4'
-          type='number'
-          min='0'
-          max='100'
-          onChange={(e) => updateHours(parseInt(e.target.value))}
-          value={hours}
-        />
-        <input
-          className='bg-transparent border-white border rounded rounded-r-none px-4'
-          type='number'
-          min='0'
-          max='59'
-          onChange={(e) => updateMinutes(parseInt(e.target.value))}
-          value={minutes}
-        />
-        <button
-          className='bg-white text-violet-700 px-4 uppercase rounded rounded-l-none'
-          onClick={() => setDelay(delayToMs())}
-        >
-          Update
-        </button>
-      </div>
     </div>
   );
 };
