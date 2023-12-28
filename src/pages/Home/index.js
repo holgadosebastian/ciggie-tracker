@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
-import cn from 'classnames';
 
 import { Counter } from './Counter';
+import { OccurrencesList } from './OccurrencesList';
 import { Icon, Surface, Button, FormField } from '../../components';
 import { getDailyPuchits, getTimeString } from '../../lib/utils';
 import { COLORS } from '../../lib/const';
@@ -19,80 +19,9 @@ const Home = ({ todayDate }) => {
   return (
     <div className='h-[calc(100vh-6.5rem)]'>
       <Counter todayDate={todayDate} todayOccurrences={todayOccurrences} />
-      <OccurencesList occurrences={todayOccurrences} />
+      <OccurrencesList occurrences={todayOccurrences} />
       <Tabs />
     </div>
-  );
-};
-
-const OccurencesList = ({ occurrences }) => {
-  const [activePuchitId, setActivePuchitId] = useState(null);
-
-  return (
-    <div className='h-3/6 overflow-y-auto p-4'>
-      <ul className='flex flex-col gap-2'>
-        {occurrences.map(({ id, date }) => (
-          <CigaretteItem
-            id={id}
-            key={id}
-            date={date}
-            activePuchitId={activePuchitId}
-            onSetActivePuchit={setActivePuchitId}
-          />
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-const CigaretteItem = ({ id, date, activePuchitId, onSetActivePuchit }) => {
-  const { removeOccurrence } = useContext(MainContext);
-
-  const handleRemoveCigarette = (event) => {
-    event.stopPropagation();
-    removeOccurrence(id);
-  };
-
-  return (
-    <Surface
-      as='li'
-      rounded='sm'
-      onClick={() =>
-        activePuchitId !== id ? onSetActivePuchit(id) : onSetActivePuchit(null)
-      }
-      key={id}
-      className={cn(
-        'pl-4',
-        'pr-2',
-        'h-8',
-        'transition-colors',
-        'flex',
-        'justify-between',
-        'items-center',
-        {
-          'text-violet-900': activePuchitId === id
-        }
-      )}
-      background={activePuchitId === id ? 'white' : 'darker'}
-    >
-      <p>{getTimeString(date)}</p>
-      {activePuchitId === id && (
-        <div className='flex'>
-          <button
-            className='h-8 w-8 text-center leading-8'
-            onClick={handleRemoveCigarette}
-          >
-            <Icon name='trash-alt' />
-          </button>
-          <div
-            className='h-8 w-8 text-center leading-8'
-            onClick={() => onSetActivePuchit(null)}
-          >
-            <Icon name='close' />
-          </div>
-        </div>
-      )}
-    </Surface>
   );
 };
 
