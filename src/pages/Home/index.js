@@ -46,11 +46,11 @@ const OccurencesList = ({ occurrences }) => {
 };
 
 const CigaretteItem = ({ id, date, activePuchitId, onSetActivePuchit }) => {
-  const { removeCigarette } = useContext(MainContext);
+  const { removeOccurrence } = useContext(MainContext);
 
   const handleRemoveCigarette = (event) => {
     event.stopPropagation();
-    removeCigarette(id);
+    removeOccurrence(id);
   };
 
   return (

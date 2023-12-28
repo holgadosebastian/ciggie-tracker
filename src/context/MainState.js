@@ -58,15 +58,23 @@ const MainState = ({ children }) => {
     });
 
     dispatch({
-      type: 'ADD_OCURRENCE',
+      type: 'ADD_OCCURRENCE',
       payload: newOcurrence
     });
   };
 
-  const removeCigarette = (cigaretteId) => {
+  const removeOccurrence = (id) => {
+    const { currentTab } = state;
+    storeTabInfo(currentTab.id, {
+      ...currentTab,
+      occurrences: currentTab.occurrences.filter(
+        (occurrence) => occurrence.id !== id
+      )
+    });
+
     dispatch({
-      type: 'REMOVE_CIGARETTE',
-      payload: cigaretteId
+      type: 'REMOVE_OCCURRENCE',
+      payload: id
     });
   };
 
@@ -177,7 +185,7 @@ const MainState = ({ children }) => {
         setGoal,
         setDelay,
         addOcurrence,
-        removeCigarette,
+        removeOccurrence,
         addTab,
         setCurrentTab,
         updateTab

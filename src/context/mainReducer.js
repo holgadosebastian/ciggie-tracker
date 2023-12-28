@@ -1,4 +1,6 @@
 export default (state, action) => {
+  const { currentTab } = state;
+
   switch (action.type) {
     case 'ADD_TAB':
       return {
@@ -25,8 +27,7 @@ export default (state, action) => {
         }),
         currentTab: action.payload
       };
-    case 'ADD_OCURRENCE':
-      const { currentTab } = state;
+    case 'ADD_OCCURRENCE':
       const { occurrences } = currentTab;
 
       return {
@@ -36,10 +37,15 @@ export default (state, action) => {
           occurrences: [...occurrences, action.payload]
         }
       };
-    case 'REMOVE_CIGARETTE':
+    case 'REMOVE_OCCURRENCE':
       return {
         ...state,
-        cigarettes: state.cigarettes.filter(({ id }) => id !== action.payload)
+        currentTab: {
+          ...currentTab,
+          occurrences: currentTab.occurrences.filter(
+            ({ id }) => id !== action.payload
+          )
+        }
       };
     case 'SET_GOAL': {
       const { currentTab } = state;

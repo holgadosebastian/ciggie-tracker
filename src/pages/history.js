@@ -3,6 +3,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { getGroupedPuchits } from '../lib/utils';
 import MainContext from '../context/MainContext';
 
+/**
+ * TODO: Refactor all of this
+ */
 const History = ({ puchits }) => {
   const { cigarettes } = useContext(MainContext);
   const [groupedPuchits, setGroupedPuchits] = useState([]);
