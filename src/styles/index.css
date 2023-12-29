@@ -28,6 +28,11 @@
     --pink-light: #f472b6;
     --pink-dark: #db2777;
     --pink-darker: #831843;
+
+    --color-lighter: var(--teal-lighter);
+    --color-light: var(--teal-light);
+    --color-dark: var(--teal-dark);
+    --color-darker: var(--teal-darker);
   }
 
   [theme='teal'] {
