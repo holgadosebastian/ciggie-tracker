@@ -1,7 +1,14 @@
 import React, { useContext, useState } from 'react';
 
-import { Icon, Surface, Button, FormField, Text } from '../../components';
-import { COLORS } from '../../lib/const';
+import {
+  Icon,
+  Surface,
+  Button,
+  FormField,
+  Text,
+  Label
+} from '../../components';
+import { COLORS, THEME_ICONS } from '../../lib/const';
 import MainContext from '../../context/MainContext';
 
 export const Tabs = () => {
@@ -37,11 +44,12 @@ const NewTab = ({ isOpen, onClose }) => {
   const { addTab } = useContext(MainContext);
   const [name, setName] = useState('Item 1');
   const [themeColor, setThemeColor] = useState('violet');
+  const [themeIcon, setThemeIcon] = useState('fire');
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    addTab(name, themeColor);
+    addTab(name, themeColor, themeIcon);
     onClose();
   };
 
@@ -82,6 +90,28 @@ const NewTab = ({ isOpen, onClose }) => {
             </option>
           ))}
         </FormField>
+        <div class='flex flex-col gap-2'>
+          <Label>Icon</Label>
+          <div className='grid grid-cols-5 gap-4'>
+            {Object.values(THEME_ICONS).map((value) => (
+              <Surface
+                key={value}
+                className='flex items-center justify-center'
+                padding='sm'
+                color='white'
+                rounded='default'
+                outline={value !== themeIcon}
+                onClick={() => setThemeIcon(value)}
+              >
+                <Icon
+                  name={value}
+                  size='xl'
+                  color={value !== themeIcon ? 'white' : 'mono-dark'}
+                />
+              </Surface>
+            ))}
+          </div>
+        </div>
         <Button type='submit'>ADD</Button>
       </form>
     </Surface>

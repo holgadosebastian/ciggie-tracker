@@ -14,7 +14,8 @@ export const Text = ({
   const colorStyles = {
     white: 'text-white',
     light: 'text-light',
-    dark: 'text-dark'
+    dark: 'text-dark',
+    'mono-dark': 'text-slate-800'
   };
 
   const sizes = {
