@@ -122,11 +122,12 @@ const MainState = ({ children }) => {
     });
   };
 
-  const addTab = (name, themeColor) => {
+  const addTab = ({ name, themeColor, icon }) => {
     const id = uuidv4();
     const newTab = {
       id,
       name,
+      icon,
       themeColor
     };
 

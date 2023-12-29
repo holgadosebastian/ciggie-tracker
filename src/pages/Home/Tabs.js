@@ -17,7 +17,7 @@ export const Tabs = () => {
 
   return (
     <div className='h-12 flex fixed bottom-0 left-0 w-full border-t-dark border-t-2'>
-      {tabs.map(({ id, name }) => (
+      {tabs.map(({ id, name, icon }) => (
         <Surface
           key={id}
           as='button'
@@ -25,7 +25,7 @@ export const Tabs = () => {
           onClick={() => setCurrentTab(id)}
           color={currentTab.id === id ? 'dark' : 'transparent'}
         >
-          <Icon name='fire' size='xs' />
+          <Icon name={icon || 'fire'} size='xs' />
           <Text size='tiny'>{name}</Text>
         </Surface>
       ))}
@@ -44,12 +44,12 @@ const NewTab = ({ isOpen, onClose }) => {
   const { addTab } = useContext(MainContext);
   const [name, setName] = useState('Item 1');
   const [themeColor, setThemeColor] = useState('violet');
-  const [themeIcon, setThemeIcon] = useState('fire');
+  const [icon, setIcon] = useState('fire');
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    addTab(name, themeColor, themeIcon);
+    addTab({ name, themeColor, icon });
     onClose();
   };
 
@@ -100,13 +100,13 @@ const NewTab = ({ isOpen, onClose }) => {
                 padding='sm'
                 color='white'
                 rounded='default'
-                outline={value !== themeIcon}
-                onClick={() => setThemeIcon(value)}
+                outline={value !== icon}
+                onClick={() => setIcon(value)}
               >
                 <Icon
                   name={value}
                   size='xl'
-                  color={value !== themeIcon ? 'white' : 'mono-dark'}
+                  color={value !== icon ? 'white' : 'mono-dark'}
                 />
               </Surface>
             ))}
