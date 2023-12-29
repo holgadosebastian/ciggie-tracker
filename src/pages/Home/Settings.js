@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
 import cn from 'classnames';
 
-import { FormField, Button, Icon, Text, Surface } from '../../components';
+import { Button, Icon, Text, Surface } from '../../components';
 import MainContext from '../../context/MainContext';
 
 export const Settings = ({ isOpen, onClose }) => {
   const [updatedSettings, setUpdatedSettings] = useState({
     name: '',
+    icon: 'fire',
     delay: 0,
     goal: 0
   });
@@ -67,19 +68,29 @@ export const Settings = ({ isOpen, onClose }) => {
         <Icon name='close' />
       </button>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-        <div className='border-b pb-2 border-b-dark relative'>
-          <input
-            type='text'
-            value={updatedSettings.name}
-            className='bg-transparent text-4xl w-full'
-            name='name'
-            value={updatedSettings.name}
-            onChange={handleSettingsUpdate}
-          />
-          <label className='absolute top-1/2 right-2 -translate-y-1/2 pointer-events-none'>
-            <Icon name='cog' color='white' />
-          </label>
+        <div class='flex gap-4'>
+          <Surface
+            rounded='default'
+            color='dark'
+            className='aspect-square flex items-center justify-center w-12'
+          >
+            <Icon name={currentTab.icon || 'fire'} size='xl' />
+          </Surface>
+          <div className='border-b pb-2 border-b-dark relative'>
+            <input
+              type='text'
+              value={updatedSettings.name}
+              className='bg-transparent text-4xl w-full'
+              name='name'
+              value={updatedSettings.name}
+              onChange={handleSettingsUpdate}
+            />
+            <label className='absolute top-1/2 right-2 -translate-y-1/2 pointer-events-none'>
+              <Icon name='cog' color='white' />
+            </label>
+          </div>
         </div>
+
         <div class='grid grid-cols-2 gap-5'>
           <Surface
             as='label'
