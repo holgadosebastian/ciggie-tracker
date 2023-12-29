@@ -8,6 +8,10 @@ module.exports = {
         light: 'var(--color-light)',
         dark: 'var(--color-dark)',
         darker: 'var(--color-darker)'
+      },
+      backgroundImage: {
+        'gradient-theme':
+          'linear-gradient(160deg, var(--color-light), var(--color-dark))'
       }
     }
   },

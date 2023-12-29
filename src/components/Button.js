@@ -12,7 +12,7 @@ export const Button = ({
 
   const backgroundStyles = {
     primary: 'bg-white',
-    secondary: 'bg-dark',
+    secondary: 'bg-gradient-theme',
     outline: 'bg-transparent'
   };
 

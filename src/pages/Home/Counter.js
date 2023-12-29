@@ -53,7 +53,7 @@ export const Counter = () => {
             background='white'
             onClick={() => setIsMenuOpen(true)}
           >
-            <Icon name='cog' color='dark' />
+            <Icon name='cog' color='mono-dark' />
           </Surface>
         </Surface>
       </div>

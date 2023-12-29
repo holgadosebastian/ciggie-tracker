@@ -71,8 +71,8 @@ export const Settings = ({ isOpen, onClose }) => {
         <div class='flex gap-4'>
           <Surface
             rounded='default'
-            color='dark'
-            className='aspect-square flex items-center justify-center w-12'
+            color='gradient'
+            className='aspect-square flex items-center justify-center w-12 shrink-0'
           >
             <Icon name={currentTab.icon || 'fire'} size='xl' />
           </Surface>

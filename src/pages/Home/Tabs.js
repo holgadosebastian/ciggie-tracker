@@ -23,7 +23,7 @@ export const Tabs = () => {
           as='button'
           className='uppercase h-12 px-4 leading-10 text-xs flex flex-col gap-1 items-center justify-center'
           onClick={() => setCurrentTab(id)}
-          color={currentTab.id === id ? 'dark' : 'transparent'}
+          color={currentTab.id === id ? 'gradient' : 'transparent'}
         >
           <Icon name={icon || 'fire'} size='xs' />
           <Text size='tiny'>{name}</Text>

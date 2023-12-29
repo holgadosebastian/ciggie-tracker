@@ -36,6 +36,7 @@ export const Surface = ({
       dark: 'bg-dark',
       darker: 'bg-darker',
       white: 'bg-white',
+      gradient: 'bg-gradient-theme',
       'mono-dark': 'bg-slate-800',
       transparent: ''
     };
