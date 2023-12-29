@@ -2,7 +2,7 @@ import { Button } from '../components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {
-  title: 'Example/Button',
+  title: 'Components/Button',
   component: Button,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
@@ -12,7 +12,12 @@ export default {
   tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
-    backgroundColor: { control: 'color' }
+    variant: {
+      options: ['primary', 'secondary', 'outline'],
+      control: {
+        type: 'select'
+      }
+    }
   }
 };
 
@@ -26,20 +31,14 @@ export const Primary = {
 
 export const Secondary = {
   args: {
-    label: 'Button'
+    variant: 'secondary',
+    children: 'Button'
   }
 };
 
-export const Large = {
+export const Outline = {
   args: {
-    size: 'large',
-    label: 'Button'
-  }
-};
-
-export const Small = {
-  args: {
-    size: 'small',
-    label: 'Button'
+    size: 'outline',
+    children: 'Button'
   }
 };
