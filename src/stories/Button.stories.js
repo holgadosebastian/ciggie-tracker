@@ -38,7 +38,7 @@ export const Secondary = {
 
 export const Outline = {
   args: {
-    size: 'outline',
+    variant: 'outline',
     children: 'Button'
   }
 };
