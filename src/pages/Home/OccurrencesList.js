@@ -55,7 +55,7 @@ const OccurrenceItem = ({ id, date, active, onSetActiveOccurrenceId }) => {
           'text-dark': active
         }
       )}
-      background={active ? 'white' : 'dark'}
+      color={active ? 'white' : 'dark'}
     >
       <Text color={active ? 'dark' : 'white'}>{getTimeString(date)}</Text>
       {active && (

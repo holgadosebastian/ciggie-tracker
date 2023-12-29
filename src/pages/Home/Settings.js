@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import cn from 'classnames';
 
-import { FormField, Button, Icon, Text } from '../../components';
+import { FormField, Button, Icon, Text, Surface } from '../../components';
 import MainContext from '../../context/MainContext';
 
 export const Settings = ({ isOpen, onClose }) => {
@@ -80,19 +80,51 @@ export const Settings = ({ isOpen, onClose }) => {
             <Icon name='cog' color='white' />
           </label>
         </div>
-        <FormField
-          label='Goal'
-          name='goal'
-          value={updatedSettings.goal}
-          onChange={handleSettingsUpdate}
-        />
-        <FormField
-          label='Delay'
-          name='delay'
-          type='number'
-          value={delayMinutes}
-          onChange={handleDelayMinutesUpdate}
-        />
+        <div class='grid grid-cols-2 gap-5'>
+          <Surface
+            as='label'
+            outline
+            padding='md'
+            rounded='md'
+            htmlFor='SettingsGoal'
+          >
+            <Text size='tiny' className='text-center uppercase'>
+              Max
+            </Text>
+            <input
+              id='SettingsGoal'
+              class='text-white text-5xl bg-transparent max-w-full text-center font-bold'
+              name='goal'
+              value={updatedSettings.goal}
+              onChange={handleSettingsUpdate}
+            />
+            <Text size='tiny' className='text-center uppercase'>
+              Per day
+            </Text>
+          </Surface>
+          <Surface
+            as='label'
+            outline
+            padding='md'
+            rounded='md'
+            htmlFor='SettingsDelay'
+          >
+            <Text size='tiny' className='text-center uppercase'>
+              Every
+            </Text>
+            <input
+              id='SettingsDelay'
+              class='text-white text-5xl bg-transparent max-w-full text-center font-bold'
+              name='delay'
+              type='number'
+              value={delayMinutes}
+              onChange={handleDelayMinutesUpdate}
+            />
+            <Text size='tiny' className='text-center uppercase'>
+              minutes
+            </Text>
+          </Surface>
+        </div>
         <Button type='submit'>Update</Button>
       </form>
     </div>

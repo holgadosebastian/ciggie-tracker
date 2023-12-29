@@ -16,7 +16,7 @@ export const Tabs = () => {
           as='button'
           className='uppercase h-12 px-4 leading-10 text-xs flex flex-col gap-1 items-center justify-center'
           onClick={() => setCurrentTab(id)}
-          background={currentTab.id === id ? 'dark' : 'transparent'}
+          color={currentTab.id === id ? 'dark' : 'transparent'}
         >
           <Icon name='fire' size='xs' />
           <Text size='tiny'>{name}</Text>
@@ -51,7 +51,7 @@ const NewTab = ({ isOpen, onClose }) => {
     <Surface
       className='absolute bottom-0 w-full'
       padding='md'
-      background='dark'
+      color='mono-dark'
     >
       <button
         className='absolute top-4 right-4'

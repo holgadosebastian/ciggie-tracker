@@ -3,27 +3,44 @@ import cn from 'classnames';
 export const Surface = ({
   children,
   as = 'div',
-  background = 'darker',
+  color = 'white',
   rounded = 'none',
   padding = 'none',
+  outline = false,
   className,
   ...props
 }) => {
   const Elem = as;
+
   const roundedStyles = {
     none: '',
     sm: 'rounded-sm',
     default: 'rounded',
     md: 'rounded-md'
   };
-  const backgroundStyles = {
-    lighter: 'bg-lighter',
-    light: 'bg-light',
-    dark: 'bg-dark',
-    darker: 'bg-darker',
-    white: 'bg-white',
-    transparent: ''
-  };
+
+  const colorStyles = (() => {
+    if (outline) {
+      return {
+        lighter: 'border-color-lighter',
+        light: 'border-color-light',
+        dark: 'border-color-dark',
+        darker: 'border-color-darker',
+        white: 'border-color-white'
+      };
+    }
+
+    return {
+      lighter: 'bg-lighter',
+      light: 'bg-light',
+      dark: 'bg-dark',
+      darker: 'bg-darker',
+      white: 'bg-white',
+      'mono-dark': 'bg-slate-800',
+      transparent: ''
+    };
+  })();
+
   const paddingStyles = {
     none: '',
     xs: 'p-1',
@@ -31,11 +48,15 @@ export const Surface = ({
     md: 'p-4',
     lg: 'p-8'
   };
+
   const styles = cn(
     'transition-colors',
-    backgroundStyles[background],
+    colorStyles[color],
     roundedStyles[rounded],
     paddingStyles[padding],
+    {
+      border: outline
+    },
     className
   );
 

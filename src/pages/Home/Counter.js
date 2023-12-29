@@ -22,15 +22,19 @@ export const Counter = () => {
           className='flex flex-col justify-center items-center w-full relative border-2 border-dark'
           rounded='md'
           padding='lg'
-          background='transparent'
+          color='transparent'
         >
           <Text size='sm' className='uppercase mb-2'>
             {currentTab.name}
           </Text>
           <div className='rounded-full border-4 border-solid border-white w-32 h-32 flex justify-center items-center'>
             <div className='flex items-center justify-center gap-2 relative w-full'>
-              <span className='text-5xl'>{todayOccurrencesCount}</span>
-              {goal > 0 && <span className='text-xl text-dark'>/ {goal}</span>}
+              <span className='text-5xl font-bold'>
+                {todayOccurrencesCount}
+              </span>
+              {goal > 0 && (
+                <span className='text-xl text-dark font-bold'>/ {goal}</span>
+              )}
               {delay > 0 && <DelayTimer className='absolute top-full' />}
             </div>
           </div>
@@ -91,5 +95,9 @@ const DelayTimer = ({ className }) => {
     return () => clearInterval(interval);
   }, [occurrences]);
 
-  return <p className={cn('text-xs', className)}>{delayText}</p>;
+  return (
+    <Text size='small' className={cn('text-xs', className)}>
+      {delayText}
+    </Text>
+  );
 };
