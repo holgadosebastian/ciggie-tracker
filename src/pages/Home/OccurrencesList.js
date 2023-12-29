@@ -55,22 +55,22 @@ const OccurrenceItem = ({ id, date, active, onSetActiveOccurrenceId }) => {
           'text-dark': active
         }
       )}
-      background={active ? 'white' : 'darker'}
+      background={active ? 'white' : 'dark'}
     >
-      <Text>{getTimeString(date)}</Text>
+      <Text color={active ? 'dark' : 'white'}>{getTimeString(date)}</Text>
       {active && (
         <div className='flex'>
           <button
             className='h-8 w-8 text-center leading-8'
             onClick={handleRemoveOccurrence}
           >
-            <Icon name='trash-alt' />
+            <Icon name='trash-alt' color='dark' />
           </button>
           <div
             className='h-8 w-8 text-center leading-8'
             onClick={() => onSetActiveOccurrenceId(null)}
           >
-            <Icon name='close' />
+            <Icon name='close' color='dark' />
           </div>
         </div>
       )}

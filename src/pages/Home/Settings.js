@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import cn from 'classnames';
 
-import { FormField, Button, Icon } from '../../components';
+import { FormField, Button, Icon, Text } from '../../components';
 import MainContext from '../../context/MainContext';
 
 export const Settings = ({ isOpen, onClose }) => {
@@ -49,7 +49,7 @@ export const Settings = ({ isOpen, onClose }) => {
         'fixed',
         'top-0',
         'left-0',
-        'bg-dark',
+        'bg-slate-800',
         'w-full',
         'h-full',
         'transition-all',
@@ -67,12 +67,19 @@ export const Settings = ({ isOpen, onClose }) => {
         <Icon name='close' />
       </button>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-        <FormField
-          label='Name'
-          name='name'
-          value={updatedSettings.name}
-          onChange={handleSettingsUpdate}
-        />
+        <div className='border-b pb-2 border-b-dark relative'>
+          <input
+            type='text'
+            value={updatedSettings.name}
+            className='bg-transparent text-4xl w-full'
+            name='name'
+            value={updatedSettings.name}
+            onChange={handleSettingsUpdate}
+          />
+          <label className='absolute top-1/2 right-2 -translate-y-1/2 pointer-events-none'>
+            <Icon name='cog' color='white' />
+          </label>
+        </div>
         <FormField
           label='Goal'
           name='goal'

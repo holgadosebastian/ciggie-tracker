@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { Icon, Surface, Button, FormField } from '../../components';
+import { Icon, Surface, Button, FormField, Text } from '../../components';
 import { COLORS } from '../../lib/const';
 import MainContext from '../../context/MainContext';
 
@@ -9,28 +9,27 @@ export const Tabs = () => {
   const [newTabOpen, setNewTabOpen] = useState(false);
 
   return (
-    <Surface as='div' className='h-10 flex relative'>
+    <div className='h-12 flex fixed bottom-0 left-0 w-full border-t-dark border-t-2'>
       {tabs.map(({ id, name }) => (
         <Surface
           key={id}
           as='button'
-          className='uppercase h-10 px-4 leading-10 text-xs'
+          className='uppercase h-12 px-4 leading-10 text-xs flex flex-col gap-1 items-center justify-center'
           onClick={() => setCurrentTab(id)}
-          background={currentTab.id === id ? 'dark' : 'darker'}
+          background={currentTab.id === id ? 'dark' : 'transparent'}
         >
-          {name}
+          <Icon name='fire' size='xs' />
+          <Text size='tiny'>{name}</Text>
         </Surface>
       ))}
-      <Surface
-        as='button'
-        className='uppercase h-10 px-4 leading-10 text-darker ml-auto'
-        background='white'
+      <button
+        className='uppercase h-12 w-12 px-4 leading-12 text-darker ml-auto bg-slate-700'
         onClick={() => setNewTabOpen(true)}
       >
         <Icon name='plus' />
-      </Surface>
+      </button>
       <NewTab isOpen={newTabOpen} onClose={() => setNewTabOpen(false)} />
-    </Surface>
+    </div>
   );
 };
 

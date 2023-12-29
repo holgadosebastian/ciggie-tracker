@@ -9,7 +9,10 @@ const Header = () => {
 
   return (
     <>
-      <Surface as='header' className='fixed inset-x-0 top-0 py-2 h-10'>
+      <Surface
+        as='header'
+        className='fixed inset-x-0 top-0 py-2 h-10 bg-slate-800'
+      >
         <Container>
           <nav className='flex gap-4'>
             <Link

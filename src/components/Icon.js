@@ -4,7 +4,8 @@ export const Icon = ({ color = 'white', size = 'base', className, name }) => {
   const colorStyles = {
     white: 'text-white',
     light: 'text-light',
-    dark: 'text-dark'
+    dark: 'text-dark',
+    darker: 'text-darker'
   };
 
   const sizeStyles = {

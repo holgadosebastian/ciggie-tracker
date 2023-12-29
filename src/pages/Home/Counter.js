@@ -19,9 +19,10 @@ export const Counter = () => {
     <>
       <div className='flex align-center w-full justify-center items-center'>
         <Surface
-          className='flex flex-col justify-center items-center w-full relative'
+          className='flex flex-col justify-center items-center w-full relative border-2 border-dark'
           rounded='md'
           padding='lg'
+          background='transparent'
         >
           <Text size='sm' className='uppercase mb-2'>
             {currentTab.name}
@@ -29,11 +30,15 @@ export const Counter = () => {
           <div className='rounded-full border-4 border-solid border-white w-32 h-32 flex justify-center items-center'>
             <div className='flex items-center justify-center gap-2 relative w-full'>
               <span className='text-5xl'>{todayOccurrencesCount}</span>
-              {goal > 0 && <span className='text-xl'>/ {goal}</span>}
+              {goal > 0 && <span className='text-xl text-dark'>/ {goal}</span>}
               {delay > 0 && <DelayTimer className='absolute top-full' />}
             </div>
           </div>
-          <Button className='mt-4' onClick={() => addOcurrence()}>
+          <Button
+            variant='secondary'
+            className='mt-4'
+            onClick={() => addOcurrence()}
+          >
             Add
           </Button>
 
@@ -44,7 +49,7 @@ export const Counter = () => {
             background='white'
             onClick={() => setIsMenuOpen(true)}
           >
-            <Icon name='cog' className='text-darker' />
+            <Icon name='cog' color='dark' />
           </Surface>
         </Surface>
       </div>
