@@ -68,7 +68,7 @@ export const Settings = ({ isOpen, onClose }) => {
         <Icon name='close' />
       </button>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-        <div class='flex gap-4'>
+        <div className='flex gap-4'>
           <Surface
             rounded='default'
             color='gradient'
@@ -91,7 +91,7 @@ export const Settings = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        <div class='grid grid-cols-2 gap-5'>
+        <div className='grid grid-cols-2 gap-5'>
           <Surface
             as='label'
             outline
@@ -104,7 +104,7 @@ export const Settings = ({ isOpen, onClose }) => {
             </Text>
             <input
               id='SettingsGoal'
-              class='text-white text-5xl bg-transparent max-w-full text-center font-bold'
+              className='text-white text-5xl bg-transparent max-w-full text-center font-bold'
               name='goal'
               value={updatedSettings.goal}
               onChange={handleSettingsUpdate}
@@ -125,7 +125,7 @@ export const Settings = ({ isOpen, onClose }) => {
             </Text>
             <input
               id='SettingsDelay'
-              class='text-white text-5xl bg-transparent max-w-full text-center font-bold'
+              className='text-white text-5xl bg-transparent max-w-full text-center font-bold'
               name='delay'
               type='number'
               value={delayMinutes}

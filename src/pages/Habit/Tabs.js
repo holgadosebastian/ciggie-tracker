@@ -90,7 +90,7 @@ const NewTab = ({ isOpen, onClose }) => {
             </option>
           ))}
         </FormField>
-        <div class='flex flex-col gap-2'>
+        <div className='flex flex-col gap-2'>
           <Label>Icon</Label>
           <div className='grid grid-cols-5 gap-4'>
             {Object.values(THEME_ICONS).map((value) => (
