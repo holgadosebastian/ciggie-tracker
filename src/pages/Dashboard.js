@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import MainContext from '../context/MainContext';
 import {
@@ -74,21 +74,14 @@ const Dashboard = () => {
 };
 
 const HabitItem = ({ id, name, themeColor, icon, occurrences }) => {
-  const navigate = useNavigate();
-  const { setCurrentTab } = useContext(MainContext);
-
-  const handleOpenTab = () => {
-    setCurrentTab(id);
-    navigate('/habit');
-  };
-
   return (
     <Surface
+      as={Link}
+      to={`/habit/${id}`}
       theme={themeColor}
       color='gradient'
       padding='md'
       rounded='default'
-      onClick={handleOpenTab}
     >
       <div className='flex gap-5 items-center'>
         <Surface

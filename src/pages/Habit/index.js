@@ -1,12 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useContext } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 import { Counter } from './Counter';
 import { OccurrencesList } from './OccurrencesList';
 import { Tabs } from './Tabs';
 import { Container, Text, Icon } from '../../components';
+import MainContext from '../../context/MainContext';
 
 const Habit = () => {
+  const { currentTab, setCurrentTab } = useContext(MainContext);
+  const { habitId } = useParams();
+
+  useEffect(() => {
+    setCurrentTab(habitId);
+  }, []);
+
+  if (currentTab === null) return null;
+
   return (
     <div className='h-[calc(100vh-6.5rem)]'>
       <Container className='h-full flex flex-col gap-4'>

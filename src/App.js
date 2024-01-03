@@ -30,7 +30,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Dashboard />}></Route>
             <Route
-              path='/habit'
+              path='/habit/:habitId'
               element={<Habit todayDate={todayDate} />}
             ></Route>
             <Route path='/history' element={<History />}></Route>
