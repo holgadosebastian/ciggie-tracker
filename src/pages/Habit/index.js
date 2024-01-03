@@ -13,7 +13,7 @@ const Habit = () => {
 
   useEffect(() => {
     setCurrentTab(habitId);
-  }, []);
+  }, [habitId]);
 
   if (currentTab === null || currentTab.id !== habitId) return 'Loading';
 
