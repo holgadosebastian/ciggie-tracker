@@ -15,7 +15,7 @@ const Habit = () => {
     setCurrentTab(habitId);
   }, []);
 
-  if (currentTab === null) return null;
+  if (currentTab === null || currentTab.id !== habitId) return 'Loading';
 
   return (
     <div className='h-[calc(100vh-6.5rem)]'>
