@@ -3,6 +3,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import History from './pages/History';
+import Dashboard from './pages/Dashboard';
 
 import Header from './layout/Header';
 import MainState from './context/MainState';
@@ -27,7 +28,8 @@ const App = () => {
         {/* <Header /> */}
         <div className='pt-16'>
           <Routes>
-            <Route path='/' element={<Home todayDate={todayDate} />}></Route>
+            <Route path='/' element={<Dashboard />}></Route>
+            <Route path='/tab' element={<Home todayDate={todayDate} />}></Route>
             <Route path='/history' element={<History />}></Route>
           </Routes>
         </div>
