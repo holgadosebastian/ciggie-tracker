@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
 
 import MainContext from '../context/MainContext';
 import {
@@ -9,8 +8,8 @@ import {
   Text,
   Icon,
   FormField,
-  Label,
-  Button
+  Button,
+  Drawer
 } from '../components';
 import { getStoredTabInfo } from '../lib/utils';
 import { COLORS, THEME_ICONS } from '../lib/const';
@@ -115,96 +114,82 @@ const NewHabitModal = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  if (!isOpen) return null;
-
   return (
-    <Surface
-      className='fixed top-0 left-0 w-full h-full'
-      padding='md'
-      color='mono-dark'
-    >
-      <button
-        className='absolute top-4 right-4'
-        type='button'
-        onClick={() => onClose()}
-      >
-        <Icon name='close' />
-      </button>
-
-      <Text className='text-xl mb-5 uppercase border-b pb-2'>New Habit</Text>
-
-      <div className='flex justify-center' theme={themeColor}>
-        <Surface
-          className='bg-slate-900 w-28 h-28 flex flex-col items-center justify-center gap-2'
-          rounded='default'
-        >
+    <Drawer title='New Habit' isOpen={isOpen} onClose={onClose}>
+      <Drawer.Body>
+        <div className='flex justify-center' theme={themeColor}>
           <Surface
+            className='bg-slate-900 w-28 h-28 flex flex-col items-center justify-center gap-2'
             rounded='default'
-            color='gradient'
-            className='aspect-square flex items-center justify-center w-12 shrink-0'
           >
-            <Icon name={icon} size='xl' />
+            <Surface
+              rounded='default'
+              color='gradient'
+              className='aspect-square flex items-center justify-center w-12 shrink-0'
+            >
+              <Icon name={icon} size='xl' />
+            </Surface>
+            <Text className='uppercase leading-none'>{name}</Text>
           </Surface>
-          <Text className='uppercase leading-none'>{name}</Text>
-        </Surface>
-      </div>
-      <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-        <FormField
-          label='Name'
-          name='name'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <div className='flex flex-col gap-2'>
-          <div className='grid grid-cols-5 gap-4'>
-            {Object.values(COLORS).map((value) => {
-              const isActive = value === themeColor;
+        </div>
+        <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+          <FormField
+            label='Name'
+            name='name'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <div className='flex flex-col gap-2'>
+            <div className='grid grid-cols-5 gap-4'>
+              {Object.values(COLORS).map((value) => {
+                const isActive = value === themeColor;
 
-              return (
-                <div theme={value} className='relative' key={value}>
-                  {isActive && (
+                return (
+                  <div theme={value} className='relative' key={value}>
+                    {isActive && (
+                      <Surface
+                        className='absolute top-0 left-0 w-full h-full aspect-square'
+                        rounded='default'
+                        outline
+                      />
+                    )}
                     <Surface
-                      className='absolute top-0 left-0 w-full h-full aspect-square'
+                      className='flex items-center justify-center aspect-square'
+                      padding='sm'
+                      color='gradient'
                       rounded='default'
-                      outline
-                    />
-                  )}
-                  <Surface
-                    className='flex items-center justify-center aspect-square'
-                    padding='sm'
-                    color='gradient'
-                    rounded='default'
-                    onClick={() => setThemeColor(value)}
-                  ></Surface>
-                </div>
-              );
-            })}
+                      onClick={() => setThemeColor(value)}
+                    ></Surface>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-        <div className='flex flex-col gap-2'>
-          <div className='grid grid-cols-5 gap-4'>
-            {Object.values(THEME_ICONS).map((value) => (
-              <Surface
-                key={value}
-                className='flex items-center justify-center aspect-square'
-                padding='sm'
-                color='white'
-                rounded='default'
-                outline={value !== icon}
-                onClick={() => setIcon(value)}
-              >
-                <Icon
-                  name={value}
-                  size='xl'
-                  color={value !== icon ? 'white' : 'mono-dark'}
-                />
-              </Surface>
-            ))}
+          <div className='flex flex-col gap-2'>
+            <div className='grid grid-cols-5 gap-4'>
+              {Object.values(THEME_ICONS).map((value) => (
+                <Surface
+                  key={value}
+                  className='flex items-center justify-center aspect-square'
+                  padding='sm'
+                  color='white'
+                  rounded='default'
+                  outline={value !== icon}
+                  onClick={() => setIcon(value)}
+                >
+                  <Icon
+                    name={value}
+                    size='xl'
+                    color={value !== icon ? 'white' : 'mono-dark'}
+                  />
+                </Surface>
+              ))}
+            </div>
           </div>
-        </div>
-        <Button type='submit'>ADD</Button>
-      </form>
-    </Surface>
+          <Button type='submit'>ADD</Button>
+        </form>
+      </Drawer.Body>
+    </Drawer>
   );
 };
 

@@ -18,9 +18,16 @@ export const Icon = ({ color = 'white', size = 'base', className, name }) => {
 
   return (
     <span
-      className={cn(colorStyles[color], sizeStyles[size], className, 'fa', {
-        [`fa-${name}`]: name
-      })}
+      className={cn(
+        'leading-none',
+        colorStyles[color],
+        sizeStyles[size],
+        className,
+        'fa',
+        {
+          [`fa-${name}`]: name
+        }
+      )}
     />
   );
 };
