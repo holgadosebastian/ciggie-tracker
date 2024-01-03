@@ -17,31 +17,10 @@ const updateThemeColor = (colorName) => {
 
 const MainState = ({ children }) => {
   const tabs = getStoredTabsData();
-  let currentTab;
-
-  if (tabs.length === 0) {
-    tabs.push({
-      id: uuidv4(),
-      name: 'Item 1',
-      themeColor: 'violet',
-      current: true
-    });
-    storeTabsData(tabs);
-    currentTab = {
-      ...tabs[0],
-      occurrences: [],
-      goal: 0,
-      delay: 0
-    };
-    storeTabInfo(currentTab.id, currentTab);
-  } else {
-    const currentTabId = tabs[0].id;
-    currentTab = getStoredTabInfo(currentTabId);
-  }
 
   const initialState = {
     tabs,
-    currentTab
+    currentTab: null
   };
   const [state, dispatch] = useReducer(mainReducer, initialState);
 
@@ -141,6 +120,8 @@ const MainState = ({ children }) => {
   };
 
   const updateTab = (data = {}) => {
+    const { currentTab } = state;
+
     storeTabsData(
       tabs.map((tab) => {
         if (currentTab.id === tab.id) {
@@ -175,7 +156,7 @@ const MainState = ({ children }) => {
   };
 
   useEffect(() => {
-    updateThemeColor(currentTab.themeColor);
+    updateThemeColor(state.currentTab?.themeColor || 'dark');
   }, []);
 
   return (
