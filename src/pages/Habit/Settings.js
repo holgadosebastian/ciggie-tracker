@@ -5,6 +5,49 @@ import { Button, Icon, Text, Surface } from '../../components';
 import MainContext from '../../context/MainContext';
 
 export const Settings = ({ isOpen, onClose }) => {
+  const [page, setPage] = useState('initial');
+  const { currentTab } = useContext(MainContext);
+
+  useEffect(() => {
+    setPage('initial');
+  }, [currentTab]);
+
+  return (
+    <div
+      className={cn(
+        'fixed',
+        'top-0',
+        'left-0',
+        'bg-slate-800',
+        'w-full',
+        'h-full',
+        'transition-all',
+        'p-10',
+        'z-50',
+        {
+          'opacity-0 pointer-events-none': !isOpen,
+          'opacity-1': isOpen
+        }
+      )}
+    >
+      <button
+        className='absolute top-2 right-2 w-10 h-10'
+        onClick={() => onClose()}
+      >
+        <Icon name='close' />
+      </button>
+      {page === 'initial' ? (
+        <InitialPage onSetRemovePage={() => setPage('remove')} />
+      ) : page === 'remove' ? (
+        <RemovePage onCancel={() => setPage('initial')} />
+      ) : (
+        <ConfigPage />
+      )}
+    </div>
+  );
+};
+
+const InitialPage = ({ onSetRemovePage }) => {
   const [updatedSettings, setUpdatedSettings] = useState({
     name: '',
     icon: 'fire',
@@ -45,28 +88,7 @@ export const Settings = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div
-      className={cn(
-        'fixed',
-        'top-0',
-        'left-0',
-        'bg-slate-800',
-        'w-full',
-        'h-full',
-        'transition-all',
-        'p-10',
-        {
-          'opacity-0 pointer-events-none': !isOpen,
-          'opacity-1': isOpen
-        }
-      )}
-    >
-      <button
-        className='absolute top-2 right-2 w-10 h-10'
-        onClick={() => onClose()}
-      >
-        <Icon name='close' />
-      </button>
+    <div className='flex flex-col justify-between h-full'>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <div className='flex gap-4'>
           <Surface
@@ -138,6 +160,47 @@ export const Settings = ({ isOpen, onClose }) => {
         </div>
         <Button type='submit'>Update</Button>
       </form>
+      <Button
+        variant='outline'
+        className='text-red-500'
+        onClick={() => onSetRemovePage()}
+      >
+        Remove
+      </Button>
     </div>
   );
+};
+
+const RemovePage = ({ onCancel }) => {
+  const { currentTab, removeTab } = useContext(MainContext);
+
+  return (
+    <>
+      <div className='text-center flex flex-col gap-3 items-center'>
+        <Surface
+          className='w-12 h-12 flex items-center justify-center'
+          rounded='default'
+          color='gradient'
+        >
+          <Icon size='xl' name={currentTab.icon || 'fire'} />
+        </Surface>
+        <Text size='h5' className='uppercase'>
+          {currentTab.name}
+        </Text>
+        <Text className='text'>
+          Are you sure you want to remove this habit?
+        </Text>
+        <Button className='w-full' onClick={() => removeTab(currentTab.id)}>
+          Remove
+        </Button>
+        <Button className='w-full' variant='outline' onClick={() => onCancel()}>
+          Cancel
+        </Button>
+      </div>
+    </>
+  );
+};
+
+const ConfigPage = () => {
+  return 'Config';
 };

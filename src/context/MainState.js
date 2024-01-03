@@ -35,7 +35,7 @@ const MainState = ({ children }) => {
     };
     storeTabInfo(currentTab.id, currentTab);
   } else {
-    const currentTabId = tabs.find(({ current }) => current).id;
+    const currentTabId = tabs[0].id;
     currentTab = getStoredTabInfo(currentTabId);
   }
 
@@ -165,10 +165,9 @@ const MainState = ({ children }) => {
     });
   };
 
-  /**
-   * TODO: Add remove functionality
-   */
   const removeTab = (id) => {
+    storeTabsData([...tabs.filter((tab) => tab.id !== id)]);
+
     dispatch({
       type: 'REMOVE_TAB',
       payload: id
@@ -189,7 +188,8 @@ const MainState = ({ children }) => {
         removeOccurrence,
         addTab,
         setCurrentTab,
-        updateTab
+        updateTab,
+        removeTab
       }}
     >
       {children}

@@ -27,6 +27,12 @@ export default (state, action) => {
         }),
         currentTab: action.payload
       };
+    case 'REMOVE_TAB':
+      return {
+        ...state,
+        tabs: state.tabs.filter((tab) => tab.id !== action.payload),
+        currentTab: null
+      };
     case 'ADD_OCCURRENCE':
       const { occurrences } = currentTab;
 
