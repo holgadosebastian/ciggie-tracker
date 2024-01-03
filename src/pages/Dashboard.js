@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
 import MainContext from '../context/MainContext';
 import {
@@ -104,7 +105,7 @@ const HabitItem = ({ id, name, themeColor, icon, occurrences }) => {
 const NewHabitModal = ({ isOpen, onClose }) => {
   const { addTab } = useContext(MainContext);
   const [name, setName] = useState('Item 1');
-  const [themeColor, setThemeColor] = useState('violet');
+  const [themeColor, setThemeColor] = useState('sky');
   const [icon, setIcon] = useState('fire');
 
   const handleSubmit = (event) => {
@@ -130,7 +131,23 @@ const NewHabitModal = ({ isOpen, onClose }) => {
         <Icon name='close' />
       </button>
 
-      <p className='text-xl mb-5'>Add a New Tab</p>
+      <Text className='text-xl mb-5 uppercase border-b pb-2'>New Habit</Text>
+
+      <div className='flex justify-center' theme={themeColor}>
+        <Surface
+          className='bg-slate-900 w-28 h-28 flex flex-col items-center justify-center gap-2'
+          rounded='default'
+        >
+          <Surface
+            rounded='default'
+            color='gradient'
+            className='aspect-square flex items-center justify-center w-12 shrink-0'
+          >
+            <Icon name={icon} size='xl' />
+          </Surface>
+          <Text className='uppercase leading-none'>{name}</Text>
+        </Surface>
+      </div>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <FormField
           label='Name'
@@ -138,26 +155,38 @@ const NewHabitModal = ({ isOpen, onClose }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <FormField
-          label='Color'
-          name='themeColor'
-          type='select'
-          value={themeColor}
-          onChange={(e) => setThemeColor(e.target.value)}
-        >
-          {Object.values(COLORS).map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </FormField>
         <div className='flex flex-col gap-2'>
-          <Label>Icon</Label>
+          <div className='grid grid-cols-5 gap-4'>
+            {Object.values(COLORS).map((value) => {
+              const isActive = value === themeColor;
+
+              return (
+                <div theme={value} className='relative' key={value}>
+                  {isActive && (
+                    <Surface
+                      className='absolute top-0 left-0 w-full h-full aspect-square'
+                      rounded='default'
+                      outline
+                    />
+                  )}
+                  <Surface
+                    className='flex items-center justify-center aspect-square'
+                    padding='sm'
+                    color='gradient'
+                    rounded='default'
+                    onClick={() => setThemeColor(value)}
+                  ></Surface>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className='flex flex-col gap-2'>
           <div className='grid grid-cols-5 gap-4'>
             {Object.values(THEME_ICONS).map((value) => (
               <Surface
                 key={value}
-                className='flex items-center justify-center'
+                className='flex items-center justify-center aspect-square'
                 padding='sm'
                 color='white'
                 rounded='default'
