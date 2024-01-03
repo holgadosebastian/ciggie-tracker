@@ -18,7 +18,7 @@ const Habit = () => {
   if (currentTab === null || currentTab.id !== habitId) return 'Loading';
 
   return (
-    <div className='h-[calc(100vh-6.5rem)]'>
+    <div className='h-[calc(100vh-6.5rem)]' theme={currentTab.themeColor}>
       <Container className='h-full flex flex-col gap-4'>
         <Link to='/' className='inline-flex gap-2 items-center'>
           <Icon name='chevron-left' size='xs' />

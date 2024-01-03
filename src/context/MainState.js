@@ -11,10 +11,6 @@ import {
   getStoredTabsData
 } from '../lib/utils';
 
-const updateThemeColor = (colorName) => {
-  document.documentElement.setAttribute('theme', colorName);
-};
-
 const MainState = ({ children }) => {
   const tabs = getStoredTabsData();
 
@@ -94,7 +90,6 @@ const MainState = ({ children }) => {
     storeTabsData(updatedTabs);
     const updatedCurrentTab = getStoredTabInfo(id);
 
-    updateThemeColor(updatedCurrentTab.themeColor);
     dispatch({
       type: 'SET_CURRENT_TAB',
       payload: updatedCurrentTab
@@ -154,10 +149,6 @@ const MainState = ({ children }) => {
       payload: id
     });
   };
-
-  useEffect(() => {
-    updateThemeColor(state.currentTab?.themeColor || 'dark');
-  }, []);
 
   return (
     <MainContext.Provider
