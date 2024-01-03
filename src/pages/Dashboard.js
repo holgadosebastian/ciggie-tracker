@@ -17,11 +17,12 @@ const Dashboard = () => {
     });
   }, []);
 
-  console.log('items', items);
-
   return (
     <div className='h-[calc(100vh-6.5rem)]'>
       <Container className='h-full flex flex-col gap-4'>
+        <Text size='h4' className='uppercase'>
+          Your habits
+        </Text>
         {items.map(({ id, name, themeColor, icon, occurrences }) => (
           <TabItem
             key={id}
@@ -43,7 +44,7 @@ const TabItem = ({ id, name, themeColor, icon, occurrences }) => {
 
   const handleOpenTab = () => {
     setCurrentTab(id);
-    navigate('/tab');
+    navigate('/habit');
   };
 
   return (

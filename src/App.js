@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Home from './pages/Home';
+import Habit from './pages/Habit';
 import History from './pages/History';
 import Dashboard from './pages/Dashboard';
 
@@ -26,10 +26,13 @@ const App = () => {
     <MainState>
       <Router>
         {/* <Header /> */}
-        <div className='pt-16'>
+        <div className='py-5'>
           <Routes>
             <Route path='/' element={<Dashboard />}></Route>
-            <Route path='/tab' element={<Home todayDate={todayDate} />}></Route>
+            <Route
+              path='/habit'
+              element={<Habit todayDate={todayDate} />}
+            ></Route>
             <Route path='/history' element={<History />}></Route>
           </Routes>
         </div>
