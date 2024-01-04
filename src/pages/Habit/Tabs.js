@@ -8,17 +8,27 @@ export const Tabs = () => {
   const { currentTab, tabs } = useContext(MainContext);
 
   return (
-    <div className='h-12 flex fixed bottom-0 left-0 w-full border-t-dark border-t-2'>
-      {tabs.map(({ id, name, icon }) => (
+    <div className='h-12 grid grid-cols-4 fixed bottom-0 left-0 w-full bg-mono-darker'>
+      {tabs.map(({ id, name, icon, themeColor }) => (
         <Surface
           as={Link}
           key={id}
           to={`/habit/${id}`}
           className='uppercase h-12 px-4 leading-10 text-xs flex flex-col gap-1 items-center justify-center'
           color={currentTab.id === id ? 'gradient' : 'transparent'}
+          theme={themeColor}
         >
-          <Icon name={icon || 'fire'} size='xs' />
-          <Text size='tiny'>{name}</Text>
+          <Icon
+            name={icon || 'fire'}
+            size='xs'
+            color={currentTab.id === id ? 'white' : 'dark'}
+          />
+          <Text
+            size='tiny'
+            className='max-w-full text-ellipsis overflow-hidden'
+          >
+            {name}
+          </Text>
         </Surface>
       ))}
     </div>
