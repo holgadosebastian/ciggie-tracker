@@ -12,7 +12,7 @@ import {
   Drawer
 } from '../components';
 import { getStoredTabInfo } from '../lib/utils';
-import { COLORS, THEME_ICONS } from '../lib/const';
+import { THEME_COLORS, THEME_ICONS } from '../lib/const';
 
 const Dashboard = () => {
   const { tabs } = useContext(MainContext);
@@ -142,7 +142,7 @@ const NewHabitModal = ({ isOpen, onClose }) => {
           />
           <div className='flex flex-col gap-2'>
             <div className='grid grid-cols-5 gap-4'>
-              {Object.values(COLORS).map((value) => {
+              {Object.values(THEME_COLORS).map((value) => {
                 const isActive = value === themeColor;
 
                 return (
