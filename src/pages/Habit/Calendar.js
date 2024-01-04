@@ -1,4 +1,5 @@
 import React, { useContext, useMemo } from 'react';
+import cn from 'classnames';
 
 import { Surface, Text } from '../../components';
 import {
@@ -26,7 +27,9 @@ const CalendarDay = ({ day }) => {
   const {
     currentTab: { occurrences }
   } = useContext(MainContext);
-  const isToday = day.getDate() === new Date().getDate();
+  const todayDate = new Date().getDate();
+  const isToday = day.getDate() === todayDate;
+  const isInFuture = day.getDate() > todayDate;
   const occurrencesCount = useMemo(
     () => getDailyOccurrences(occurrences, day).length,
     [occurrences]
@@ -34,24 +37,27 @@ const CalendarDay = ({ day }) => {
 
   return (
     <Surface
-      outline={!isToday}
+      outline
       rounded='default'
       padding='xs'
-      className='flex flex-col gap-1 items-center'
+      className={cn('flex flex-col gap-1 items-center', {
+        'opacity-50': isInFuture
+      })}
+      color={isToday ? 'light' : 'white'}
     >
       <Text
         size='tiny'
         className='leading-none'
-        color={isToday ? 'mono-dark' : 'white'}
+        color={isToday ? 'light' : 'white'}
       >
         {formatDateNth(day.getDate())}
       </Text>
       <Text
         size='h6'
         className='leading-none font-bold'
-        color={isToday ? 'mono-dark' : 'white'}
+        color={isToday ? 'light' : 'white'}
       >
-        {occurrencesCount}
+        {!isInFuture ? occurrencesCount : '-'}
       </Text>
     </Surface>
   );

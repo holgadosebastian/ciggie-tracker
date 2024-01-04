@@ -22,11 +22,11 @@ export const Surface = ({
   const colorStyles = (() => {
     if (outline) {
       return {
-        lighter: 'border-color-lighter',
-        light: 'border-color-light',
-        dark: 'border-color-dark',
-        darker: 'border-color-darker',
-        white: 'border-color-white'
+        lighter: 'border-lighter',
+        light: 'border-light',
+        dark: 'border-dark',
+        darker: 'border-darker',
+        white: 'border-white'
       };
     }
 
