@@ -6,7 +6,7 @@ export const Icon = ({ color = 'white', size = 'base', className, name }) => {
     light: 'text-light',
     dark: 'text-dark',
     darker: 'text-darker',
-    'mono-dark': 'text-slate-800'
+    'mono-dark': 'text-mono-dark'
   };
 
   const sizeStyles = {

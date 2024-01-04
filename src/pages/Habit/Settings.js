@@ -18,7 +18,7 @@ export const Settings = ({ isOpen, onClose }) => {
         'fixed',
         'top-0',
         'left-0',
-        'bg-slate-800',
+        'bg-mono-dark',
         'w-full',
         'h-full',
         'transition-all',

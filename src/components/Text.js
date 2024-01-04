@@ -17,7 +17,7 @@ export const Text = ({
     light: 'text-light',
     darker: 'text-darker',
     dark: 'text-dark',
-    'mono-dark': 'text-slate-800'
+    'mono-dark': 'text-mono-dark'
   };
 
   const sizes = {

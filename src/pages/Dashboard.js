@@ -119,7 +119,7 @@ const NewHabitModal = ({ isOpen, onClose }) => {
       <Drawer.Body>
         <div className='flex justify-center' theme={themeColor}>
           <Surface
-            className='bg-slate-900 w-28 h-28 flex flex-col items-center justify-center gap-2'
+            className='w-28 h-28 flex flex-col items-center justify-center gap-2'
             rounded='default'
             color='mono-darker'
           >
