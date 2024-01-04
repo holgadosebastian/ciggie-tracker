@@ -84,6 +84,21 @@ export const formatDateNth = (d) => {
   return `${d}${suffix}`;
 };
 
+export const formatMonthAndYear = (month, year) => {
+  const monthName = new Date(2009, month, 10).toLocaleDateString('default', {
+    month: 'long'
+  });
+  return `${monthName}, ${year}`;
+};
+
+export const formatDateToNumeric = (date) => {
+  return date.toLocaleDateString('default', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric'
+  });
+};
+
 export const getGroupedPuchits = (puchits) => {
   const groupedPuchits = {};
 

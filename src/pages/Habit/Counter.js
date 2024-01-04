@@ -21,7 +21,7 @@ export const Counter = () => {
         <Surface
           className='flex flex-col justify-center items-center w-full relative'
           rounded='md'
-          padding='lg'
+          padding='md'
           color='mono-darker'
         >
           <Text size='sm' className='uppercase mb-2'>
