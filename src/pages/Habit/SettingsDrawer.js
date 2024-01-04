@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useMemo } from 'react';
 
 import { Button, Icon, Text, Surface, Drawer } from '../../components';
 import MainContext from '../../context/MainContext';
@@ -30,7 +30,6 @@ export const SettingsDrawer = ({ isOpen, onClose }) => {
 const InitialPage = ({ onSetRemovePage }) => {
   const [updatedSettings, setUpdatedSettings] = useState({
     name: '',
-    icon: 'fire',
     delay: 0,
     goal: 0
   });
@@ -53,13 +52,20 @@ const InitialPage = ({ onSetRemovePage }) => {
     }));
   };
 
+  const handleGoalUpdate = (event) => {
+    setUpdatedSettings((oldSettings) => ({
+      ...oldSettings,
+      goal: parseInt(event.target.value || '0')
+    }));
+  };
+
   const handleDelayMinutesUpdate = (event) => {
     setUpdatedSettings((oldSettings) => ({
       ...oldSettings,
-      delay: parseInt(event.target.value) * 60 * 1000
+      delay: parseInt(event.target.value || '0') * 60 * 1000
     }));
 
-    setDelayMinutes(event.target.value);
+    setDelayMinutes(parseInt(event.target.value || '0'));
   };
 
   const handleSubmit = (event) => {
@@ -67,9 +73,24 @@ const InitialPage = ({ onSetRemovePage }) => {
     updateTab(updatedSettings);
   };
 
+  const isDirty = useMemo(() => {
+    const { name, goal, delay } = currentTab;
+    if (
+      JSON.stringify(updatedSettings) !== JSON.stringify({ name, delay, goal })
+    ) {
+      return true;
+    }
+
+    return false;
+  }, [currentTab, updatedSettings]);
+
   return (
     <div className='flex flex-col justify-between h-full'>
-      <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+      <form
+        className='flex flex-col gap-4'
+        onSubmit={handleSubmit}
+        autoComplete='off'
+      >
         <div className='flex gap-4'>
           <Surface
             rounded='default'
@@ -107,8 +128,8 @@ const InitialPage = ({ onSetRemovePage }) => {
               id='SettingsGoal'
               className='text-white text-5xl bg-transparent max-w-full text-center font-bold'
               name='goal'
-              value={updatedSettings.goal}
-              onChange={handleSettingsUpdate}
+              value={updatedSettings.goal.toString()}
+              onChange={handleGoalUpdate}
             />
             <Text size='tiny' className='text-center uppercase'>
               Per day
@@ -129,7 +150,7 @@ const InitialPage = ({ onSetRemovePage }) => {
               className='text-white text-5xl bg-transparent max-w-full text-center font-bold'
               name='delay'
               type='number'
-              value={delayMinutes}
+              value={delayMinutes.toString()}
               onChange={handleDelayMinutesUpdate}
             />
             <Text size='tiny' className='text-center uppercase'>
@@ -137,7 +158,7 @@ const InitialPage = ({ onSetRemovePage }) => {
             </Text>
           </Surface>
         </div>
-        <Button type='submit'>Update</Button>
+        {isDirty && <Button type='submit'>Update</Button>}
       </form>
       <Button
         variant='outline'
