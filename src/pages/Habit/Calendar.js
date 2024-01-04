@@ -80,7 +80,7 @@ const CalendarDay = ({ day }) => {
   const isInFuture = new Date(day).getTime() > new Date().getTime();
   const occurrencesCount = useMemo(
     () => getDailyOccurrences(occurrences, day).length,
-    [occurrences]
+    [occurrences, day]
   );
 
   return (

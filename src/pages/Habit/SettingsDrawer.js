@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import cn from 'classnames';
 
 import { Button, Icon, Text, Surface, Drawer } from '../../components';
 import MainContext from '../../context/MainContext';
+import { useNavigate } from 'react-router-dom';
 
 export const SettingsDrawer = ({ isOpen, onClose }) => {
   const [page, setPage] = useState('initial');
@@ -24,40 +24,6 @@ export const SettingsDrawer = ({ isOpen, onClose }) => {
         )}
       </Drawer.Body>
     </Drawer>
-  );
-
-  return (
-    <div
-      className={cn(
-        'fixed',
-        'top-0',
-        'left-0',
-        'bg-mono-dark',
-        'w-full',
-        'h-full',
-        'transition-all',
-        'p-10',
-        'z-50',
-        {
-          'opacity-0 pointer-events-none': !isOpen,
-          'opacity-1': isOpen
-        }
-      )}
-    >
-      <button
-        className='absolute top-2 right-2 w-10 h-10'
-        onClick={() => onClose()}
-      >
-        <Icon name='close' />
-      </button>
-      {page === 'initial' ? (
-        <InitialPage onSetRemovePage={() => setPage('remove')} />
-      ) : page === 'remove' ? (
-        <RemovePage onCancel={() => setPage('initial')} />
-      ) : (
-        <ConfigPage />
-      )}
-    </div>
   );
 };
 
@@ -115,7 +81,6 @@ const InitialPage = ({ onSetRemovePage }) => {
           <div className='border-b pb-2 border-b-dark relative'>
             <input
               type='text'
-              value={updatedSettings.name}
               className='bg-transparent text-4xl w-full'
               name='name'
               value={updatedSettings.name}
@@ -186,7 +151,13 @@ const InitialPage = ({ onSetRemovePage }) => {
 };
 
 const RemovePage = ({ onCancel }) => {
+  const navigate = useNavigate();
   const { currentTab, removeTab } = useContext(MainContext);
+
+  const handleRemoveTab = () => {
+    removeTab(currentTab.id);
+    navigate('/');
+  };
 
   return (
     <>
@@ -204,7 +175,7 @@ const RemovePage = ({ onCancel }) => {
         <Text className='text'>
           Are you sure you want to remove this habit?
         </Text>
-        <Button className='w-full' onClick={() => removeTab(currentTab.id)}>
+        <Button className='w-full' onClick={() => handleRemoveTab()}>
           Remove
         </Button>
         <Button className='w-full' variant='outline' onClick={() => onCancel()}>

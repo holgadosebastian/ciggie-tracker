@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useMemo,
+  useCallback
+} from 'react';
 import cn from 'classnames';
 
 import { Icon, Surface, Button, Text } from '../../components';
@@ -77,26 +83,29 @@ const DelayTimer = ({ className }) => {
       .slice(-1)[0];
   }, [occurrences]);
 
-  const updateDelayText = () => {
-    const dateNow = Date.now();
-    const progressTime = dateNow - lastOccurrenceDate;
-    const delayProgress = delay - progressTime;
+  const updateDelayText = useCallback(
+    (dateNow) => {
+      console.log('dateNow', dateNow);
+      const progressTime = dateNow - lastOccurrenceDate;
+      const delayProgress = delay - progressTime;
 
-    if (delayProgress > 0) {
-      setDelayText(msToTime(delayProgress));
-    } else {
-      setDelayText('Ready');
-    }
-  };
+      if (delayProgress > 0) {
+        setDelayText(msToTime(delayProgress));
+      } else {
+        setDelayText('Ready');
+      }
+    },
+    [lastOccurrenceDate]
+  );
 
   useEffect(() => {
-    updateDelayText();
+    updateDelayText(Date.now());
     const interval = setInterval(() => {
-      updateDelayText();
+      updateDelayText(Date.now());
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [occurrences]);
+  }, [occurrences, updateDelayText]);
 
   return (
     <Text size='small' className={cn('text-xs', className)}>
