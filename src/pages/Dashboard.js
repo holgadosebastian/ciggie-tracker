@@ -121,6 +121,7 @@ const NewHabitModal = ({ isOpen, onClose }) => {
           <Surface
             className='bg-slate-900 w-28 h-28 flex flex-col items-center justify-center gap-2'
             rounded='default'
+            color='mono-darker'
           >
             <Surface
               rounded='default'

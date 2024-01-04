@@ -19,10 +19,10 @@ export const Counter = () => {
     <>
       <div className='flex align-center w-full justify-center items-center'>
         <Surface
-          className='flex flex-col justify-center items-center w-full relative border-2 border-dark'
+          className='flex flex-col justify-center items-center w-full relative'
           rounded='md'
           padding='lg'
-          color='transparent'
+          color='mono-darker'
         >
           <Text size='sm' className='uppercase mb-2'>
             {currentTab.name}

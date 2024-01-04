@@ -3,7 +3,9 @@ export const COLORS = {
   VIOLET: 'violet',
   PINK: 'pink',
   YELLOW: 'yellow',
-  TEAL: 'teal'
+  TEAL: 'teal',
+  MONO_DARK: 'mono-dark',
+  MONO_DARKER: 'mono-darker'
 };
 
 export const THEME_ICONS = {

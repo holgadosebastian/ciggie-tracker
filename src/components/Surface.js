@@ -37,7 +37,8 @@ export const Surface = ({
       darker: 'bg-darker',
       white: 'bg-white',
       gradient: 'bg-gradient-theme',
-      'mono-dark': 'bg-slate-800',
+      'mono-dark': 'bg-mono-dark',
+      'mono-darker': 'bg-mono-darker',
       transparent: ''
     };
   })();

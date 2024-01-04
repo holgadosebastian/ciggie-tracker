@@ -29,6 +29,9 @@
     --pink-dark: #db2777;
     --pink-darker: #831843;
 
+    --color-mono-dark: #1e293b;
+    --color-mono-darker: #020617;
+
     --color-lighter: var(--teal-lighter);
     --color-light: var(--teal-light);
     --color-dark: var(--teal-dark);
