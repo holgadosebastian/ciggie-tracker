@@ -14,7 +14,7 @@ export const Tabs = () => {
           as={Link}
           key={id}
           to={`/habit/${id}`}
-          className='uppercase h-12 px-4 leading-10 text-xs flex flex-col gap-1 items-center justify-center'
+          className='uppercase h-12 px-2 leading-10 text-xs flex flex-col gap-1 items-center justify-center'
           color={currentTab.id === id ? 'gradient' : 'transparent'}
           theme={themeColor}
         >
