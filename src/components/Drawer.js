@@ -6,10 +6,13 @@ import { Surface, Text, Icon } from '../components';
 const Drawer = ({ title, children, isOpen, onClose }) => {
   return (
     <Surface
-      className={cn('fixed top-0 left-0 w-full h-full transition-transform', {
-        'translate-x-0': isOpen,
-        'translate-x-full': !isOpen
-      })}
+      className={cn(
+        'fixed top-0 left-0 w-full h-full transition-transform z-50 flex flex-col',
+        {
+          'translate-x-0': isOpen,
+          'translate-x-full': !isOpen
+        }
+      )}
       padding='md'
       color='mono-dark'
     >
@@ -23,7 +26,7 @@ const Drawer = ({ title, children, isOpen, onClose }) => {
         <Icon size='lg' name='close' color='mono-dark' />
       </Surface>
 
-      <Text className='text-xl mb-5 uppercase border-b pb-2'>{title}</Text>
+      <Text className='text-xl mb-5 uppercase leading-8'>{title}</Text>
 
       {children}
     </Surface>
@@ -31,7 +34,16 @@ const Drawer = ({ title, children, isOpen, onClose }) => {
 };
 
 const DrawerBody = ({ children }) => {
-  return <div>{children}</div>;
+  return (
+    <Surface
+      color='mono-darker'
+      padding='md'
+      rounded='default'
+      className='h-full'
+    >
+      {children}
+    </Surface>
+  );
 };
 
 Drawer.Body = DrawerBody;

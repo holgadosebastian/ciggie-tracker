@@ -1,16 +1,30 @@
 import React, { useState, useContext, useEffect } from 'react';
 import cn from 'classnames';
 
-import { Button, Icon, Text, Surface } from '../../components';
+import { Button, Icon, Text, Surface, Drawer } from '../../components';
 import MainContext from '../../context/MainContext';
 
-export const Settings = ({ isOpen, onClose }) => {
+export const SettingsDrawer = ({ isOpen, onClose }) => {
   const [page, setPage] = useState('initial');
   const { currentTab } = useContext(MainContext);
 
   useEffect(() => {
     setPage('initial');
   }, [currentTab]);
+
+  return (
+    <Drawer title='Update settings' isOpen={isOpen} onClose={onClose}>
+      <Drawer.Body>
+        {page === 'initial' ? (
+          <InitialPage onSetRemovePage={() => setPage('remove')} />
+        ) : page === 'remove' ? (
+          <RemovePage onCancel={() => setPage('initial')} />
+        ) : (
+          <ConfigPage />
+        )}
+      </Drawer.Body>
+    </Drawer>
+  );
 
   return (
     <div

@@ -7,7 +7,7 @@ import { msToTime } from '../../lib/utils';
 import MainContext from '../../context/MainContext';
 import { useOccurrences } from '../../hooks/useOccurrences';
 
-import { Settings } from './Settings';
+import { SettingsDrawer } from './SettingsDrawer';
 
 export const Counter = () => {
   const { currentTab, addOcurrence } = useContext(MainContext);
@@ -57,7 +57,10 @@ export const Counter = () => {
           </Surface>
         </Surface>
       </div>
-      <Settings isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <SettingsDrawer
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+      />
     </>
   );
 };
