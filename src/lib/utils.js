@@ -42,11 +42,46 @@ export const getStoredTabsData = () => {
   return storedData;
 };
 
-export const getDailyOccurrences = (occurrences) => {
-  const todayDate = new Date();
+export const getDailyOccurrences = (occurrences, chosenDate) => {
+  chosenDate = chosenDate || new Date();
+
   return occurrences.filter(
-    ({ date }) => todayDate.toDateString() === new Date(date).toDateString()
+    ({ date }) => chosenDate.toDateString() === new Date(date).toDateString()
   );
+};
+
+export const getDaysInMonth = (month, year) => {
+  var date = new Date(year, month, 1);
+  var days = [];
+  while (date.getMonth() === month) {
+    days.push(new Date(date));
+    date.setDate(date.getDate() + 1);
+  }
+  return days;
+};
+
+export const formatDateNth = (d) => {
+  let suffix;
+
+  if (d > 3 && d < 21) {
+    suffix = 'th';
+  } else {
+    switch (d % 10) {
+      case 1:
+        suffix = 'st';
+        break;
+      case 2:
+        suffix = 'nd';
+        break;
+      case 3:
+        suffix = 'rd';
+        break;
+      default:
+        suffix = 'th';
+    }
+  }
+
+  return `${d}${suffix}`;
 };
 
 export const getGroupedPuchits = (puchits) => {

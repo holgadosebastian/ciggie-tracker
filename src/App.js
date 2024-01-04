@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Habit from './pages/Habit';
-import History from './pages/History';
 import Dashboard from './pages/Dashboard';
 
 import Header from './layout/Header';
@@ -33,7 +32,6 @@ const App = () => {
               path='/habit/:habitId'
               element={<Habit todayDate={todayDate} />}
             ></Route>
-            <Route path='/history' element={<History />}></Route>
           </Routes>
         </div>
       </Router>
