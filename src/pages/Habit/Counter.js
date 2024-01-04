@@ -85,7 +85,6 @@ const DelayTimer = ({ className }) => {
 
   const updateDelayText = useCallback(
     (dateNow) => {
-      console.log('dateNow', dateNow);
       const progressTime = dateNow - lastOccurrenceDate;
       const delayProgress = delay - progressTime;
 
