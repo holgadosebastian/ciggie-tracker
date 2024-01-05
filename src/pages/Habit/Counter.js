@@ -94,7 +94,7 @@ const DelayTimer = ({ className }) => {
         setDelayText('Ready');
       }
     },
-    [lastOccurrenceDate]
+    [lastOccurrenceDate, delay]
   );
 
   useEffect(() => {
