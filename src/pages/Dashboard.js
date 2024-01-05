@@ -94,7 +94,7 @@ const HabitItem = ({ id, name, themeColor, icon, occurrences }) => {
           <Text size='h5' className='uppercase'>
             {name}
           </Text>
-          <Text size='small'>Today: {occurrences.length}</Text>
+          <Text size='small'>TOTAL: {occurrences.length}</Text>
         </div>
       </div>
     </Surface>

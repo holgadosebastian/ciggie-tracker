@@ -11,6 +11,16 @@ import {
 } from '../../lib/utils';
 import MainContext from '../../context/MainContext';
 
+const WEEK_DAYS = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday'
+];
+
 export const Calendar = () => {
   const [monthAndYear, setMonthAndYear] = useState([
     new Date().getMonth(),
@@ -41,7 +51,7 @@ export const Calendar = () => {
   }, [monthAndYear]);
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-2 overflow-hidden'>
       <div className='flex justify-between items-center'>
         <Surface
           as='button'
@@ -61,16 +71,21 @@ export const Calendar = () => {
           <Icon name='chevron-right' color='mono-dark' size='xs' />
         </Surface>
       </div>
+      <div className='grid grid-cols-7 gap-1 text-center'>
+        {WEEK_DAYS.map(weekDay => (
+          <Text as="span" size="tiny" key={weekDay} className="leading-none">{weekDay[0]}</Text>
+        ))}
+      </div>
       <div className='grid grid-cols-7 gap-1 overflow-y-auto'>
-        {daysInMonth.map((day) => {
-          return <CalendarDay key={day} day={day} />;
+        {daysInMonth.map((day, index) => {
+          return <CalendarDay key={day} day={day} isFirst={index === 0} />;
         })}
       </div>
     </div>
   );
 };
 
-const CalendarDay = ({ day }) => {
+const CalendarDay = ({ day, isFirst }) => {
   const {
     currentTab: { occurrences }
   } = useContext(MainContext);
@@ -83,13 +98,35 @@ const CalendarDay = ({ day }) => {
     [occurrences, day]
   );
 
+  const startOffsetStyle = (() => {
+    const dayNumber = day.getDay();
+
+    switch (dayNumber) {
+      case 1:
+        return 'col-start-1';
+      case 2:
+        return 'col-start-2';
+      case 3:
+        return 'col-start-3';
+      case 4:
+        return 'col-start-4';
+      case 5:
+        return 'col-start-5';
+      case 6:
+        return 'col-start-6';
+      default:
+        return 'col-start-7';
+    }
+  })();
+
   return (
     <Surface
       outline
       rounded='default'
       padding='xs'
       className={cn('flex flex-col gap-1 items-center', {
-        'opacity-50': isInFuture
+        'opacity-50': isInFuture,
+        [startOffsetStyle]: isFirst
       })}
       color={isToday ? 'light' : 'white'}
     >
